@@ -1,0 +1,27 @@
+.views {
+    display: flex;
+    flex-wrap: wrap;
+
+    .header {
+        height: 40px;
+        width: 100%;
+    }
+
+    .nav {
+        height: calc(100% - 40px);
+        overflow: hidden;
+        position: relative;
+        width: 200px;
+    }
+
+    .content {
+        flex: 1;
+        height: 100%;
+    }
+
+    .main {
+        height: calc(100% - 80px);
+        overflow: hidden;
+        position: relative;
+    }
+}

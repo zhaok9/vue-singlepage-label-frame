@@ -1,0 +1,85 @@
+<template>
+    <div class="component-labels">
+        <template v-for="( item, index ) of labels">
+            <div :class="{ active: item.active }" @click="toggle(item)">
+                <span>{{ item.title }}</span>
+                <i v-if="index > 0" @click.stop="destroy( item)">&times;</i>
+            </div>
+        </template>
+    </div>
+</template>
+<script>
+    import { mapMutations, mapState } from "vuex";
+
+    export default {
+        name: 'ComponentLables',
+        data() {
+            return {
+                labels: []
+            }
+        },
+        props: ['source'],
+        watch: {
+            source(n){
+                this.labels = n;
+            }
+        },
+        computed: {
+        },
+        created(){},
+        mounted(){
+            this.labels = this.source;
+        },
+        methods: {
+            ...mapMutations(["removeKeepAliveRouter"]),
+            toggle( item ){
+                this.$emit('getvalue', item);
+            },
+            destroy( item ){
+                this.removeKeepAliveRouter( item );
+            }
+        },
+        beforeDestroy(){
+
+        }
+    }
+</script>
+<style scoped lang="scss">
+    .component-labels {
+        display: flex;
+        height: 40px;
+        overflow: hidden;
+        user-select: none;
+        width: 100%;
+
+        div {
+            align-items: center;
+            cursor: pointer;
+            display: flex;
+            line-height: 40px;
+            padding: 0 10px;
+            text-align: center;
+
+            span {
+                min-width: 100px;
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-indent: 25px;
+                white-space: nowrap;
+            }
+
+            i {
+                border-radius: 100%;
+                height: 12px;
+                line-height: 10px;
+                margin-left: 15px;
+                width: 12px;
+            }
+
+            &:nth-child(1) {
+                span { text-indent: 0; }
+            }
+        }
+    }
+</style>
