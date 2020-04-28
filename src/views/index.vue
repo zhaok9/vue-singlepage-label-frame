@@ -136,7 +136,8 @@ export default {
             this.addKeepAliveRouter( item );
             loader();
         }
-    }
+    },
+    beforeDestroy(){}
 };
 </script>
 <style scoped lang="scss">
