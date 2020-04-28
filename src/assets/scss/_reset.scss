@@ -25,6 +25,10 @@ a, input, select, textarea, button {
     outline: none;
 }
 
+i {
+    font-style: normal;
+}
+
 input[type="button"], button { cursor: pointer; }
 
 span, label { display: inline-block; }

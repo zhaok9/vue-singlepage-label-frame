@@ -51,7 +51,15 @@ export const store = new Vuex.Store({
 
             state.keepAliveRouter = state.keepAliveRouter.reduce( ( all, next ) => all.some( item => item['component'] == next['component'] ) ? all : [...all, next ] ,[]);
 
-            state.keepAliveRouter.forEach( f => f.active = f.component == value.component );
+            let loops = d => {
+                d.forEach( f => {
+                    if( f.children && f.children.length > 0 ){
+                        loops( f.children );
+                    }
+                    f.active = f.component == value.component && f.id == value.id;
+                });
+            }
+            loops( state.keepAliveRouter );
 
             value.active = true;
             state.currentKeepAlive = value;

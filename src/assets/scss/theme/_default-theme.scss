@@ -18,6 +18,7 @@ $mainBackground: #EFF2F6; // 内容部分背景色
 // 组件样式 ==================================================
     // component-labels ====
     @import 'components/default-theme/labels.component';
+    @import 'components/default-theme/nav.component';
 // end 组件样式 ==================================================
 
 
@@ -69,6 +70,23 @@ $mainBackground: #EFF2F6; // 内容部分背景色
                 &:hover {
                     background: $compLabelCloseHoverBackground;
                     color: $compLabelCloseHoverColor;
+                }
+            }
+        }
+    }
+
+    .component-nav {
+        color: $compNavFontColor;
+
+        ul[data-level="1"]{
+            > li {
+                > .title {
+                    border-bottom: $compNavBorderBottom;
+
+                    &.active {
+                        background: $compNaveActiveBackground;
+                        color: $compNaveActiveFontColor;
+                    }
                 }
             }
         }
