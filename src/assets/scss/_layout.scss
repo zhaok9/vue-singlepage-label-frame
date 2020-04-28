@@ -3,12 +3,12 @@
     flex-wrap: wrap;
 
     .header {
-        height: 40px;
+        height: 67px;
         width: 100%;
     }
 
     .nav {
-        height: calc(100% - 40px);
+        height: calc(100% - 67px);
         overflow: hidden;
         position: relative;
         width: 200px;
@@ -20,7 +20,7 @@
     }
 
     .main {
-        height: calc(100% - 80px);
+        height: calc(100% - 99px);
         overflow: hidden;
         position: relative;
     }

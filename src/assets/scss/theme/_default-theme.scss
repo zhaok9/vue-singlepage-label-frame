@@ -1,0 +1,77 @@
+// default-theme
+$app-bg: #fff;
+
+// 顶部 ================================================
+    $headerBackground: #4fa1e9;
+    $headerFontColor: #fff;
+    $headerShadow: 7px 0px 9px 1px rgba(223,223,223,0.94);
+// end 顶部 ================================================
+
+// 菜单 ================================================
+    $navBackground: #fff;
+    $navFontColor: #1a1d20;
+    $navShadow: 2px 0px 7px 0px rgba(209,209,209,0.2);
+// end 菜单 ================================================
+
+$mainBackground: #EFF2F6; // 内容部分背景色
+
+// 组件样式 ==================================================
+    // component-labels ====
+    @import 'components/default-theme/labels.component';
+// end 组件样式 ==================================================
+
+
+#app.default-theme {
+    background: $app-bg;
+
+    .header {
+        box-shadow: $headerShadow;
+        background: $headerBackground;
+        color: $headerFontColor;
+        position: relative;
+        z-index: 2;
+    }
+
+    .nav {
+        box-shadow: $navShadow;
+        background: $navBackground;
+        color: $navFontColor;
+        position: relative;
+        z-index: 1;
+    }
+
+    .main {
+        background: $mainBackground;
+        position: relative;
+        z-index: 1;
+    }
+
+    // 组件样式 ==================================================
+    .component-labels {
+
+        background: $compLabelLayBackground;
+
+        div {
+            border: $compLabelBorderColor;
+            background: $compLabelBackground;
+            color: $compLabelFontColor;
+
+            &.active {
+                border-bottom-color: $compLabelActiveBackground;
+                background: $compLabelActiveBackground;
+                color: $compLabelActiveFontColor;
+            }
+
+            i {
+                background: $compLabelCloseBackground;
+                color: $compLabelCloseColor;
+
+                &:hover {
+                    background: $compLabelCloseHoverBackground;
+                    color: $compLabelCloseHoverColor;
+                }
+            }
+        }
+    }
+    // 组件样式 ==================================================
+}

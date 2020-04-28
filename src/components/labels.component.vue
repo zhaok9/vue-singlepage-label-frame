@@ -47,7 +47,7 @@
 <style scoped lang="scss">
     .component-labels {
         display: flex;
-        height: 40px;
+        height: 32px;
         overflow: hidden;
         user-select: none;
         width: 100%;
@@ -56,9 +56,11 @@
             align-items: center;
             cursor: pointer;
             display: flex;
-            line-height: 40px;
+            line-height: 32px;
+            margin-left: -1px;
             padding: 0 10px;
             text-align: center;
+            transition:  all .2s linear;
 
             span {
                 min-width: 100px;
@@ -71,10 +73,17 @@
 
             i {
                 border-radius: 100%;
+                font-size: 18px;
                 height: 12px;
                 line-height: 10px;
                 margin-left: 15px;
+                opacity: .5;
+                transition:  all .2s linear;
                 width: 12px;
+
+                &:hover {
+                    opacity: 1;
+                }
             }
 
             &:nth-child(1) {

@@ -9,7 +9,7 @@
         name: 'App',
         data(){
             return {
-                theme: 'theme'
+                theme: 'default-theme'
             }
         },
         computed: {

@@ -1,4 +1,4 @@
-# frame
+# vue-singlepage-label-frame
 
 ## Project setup
 ```
@@ -15,19 +15,13 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 ### 更新
 
 #### 2020-04-28
 >
-+ 解决菜单初始选中项bug
++ 解决菜单初始选中项BUG
++ 调整主题目录结构
++ 优化标签组件UI
 
 #### 2020-04-27
 >
