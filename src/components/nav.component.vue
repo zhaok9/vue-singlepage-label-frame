@@ -1,38 +1,49 @@
 <template>
     <div class="component-nav">
-        <ul :data-level="level">
-            <li v-for="item of navs" @click.preventDefault="go( item )">
-                <div class="title" :class="{ active: currentKeepAlive.id == item.id && openId == -1 }">
-                    <template v-if="level == 1">
-                        <i>图标</i>
-                        <span>{{ item.title }}</span>
-                        <i>图标</i>
-                    </template>
-                    <template v-else>
-                        <span>{{ item.title }}</span>
-                    </template>
-                </div>
-                <template v-if="item.children">
-                    <component-nav :level="parseInt(level) + 1" :in="true" :source="item.children" @getvalue="go" :class="{ show: openId == item.id }"></component-nav>
-                </template>
-            </li>
-        </ul>
+        <navtree :navs="navs" :level="level" :currentKeepAlive="currentKeepAlive" :go="go"></navtree>
     </div>
 </template>
 <script>
     import { mapMutations, mapState } from "vuex";
+
+    Vue.component('navtree', {
+        props:["navs", "level", "currentKeepAlive", "go"],
+        template: `
+            <ul :data-level="level">
+                <li v-for="item of navs" @click.stop="go( item )">
+                    <div class="title" :class="{ active: currentKeepAlive.id == item.id }">
+                        <template v-if="level == 1">
+                            <i>图标</i>
+                            <span>{{ item.title }}</span>
+                            <i>图标</i>
+                        </template>
+                        <template v-else>
+                            <span>{{ item.title }}</span>
+                        </template>
+                    </div>
+                    <template v-if="item.children">
+                        <navtree :navs="item.children" :level="parseInt(level) + 1" :currentKeepAlive="currentKeepAlive" :go="go"></navtree>
+                    </template>
+                </li>
+            </ul>
+        `,
+    });
+
     export default {
         name: 'ComponentNav',
         data() {
             return {
                 navs: [],
-                openId: -1
+                openid: -1,
             }
         },
         props: ["source", "in", "level"],
         watch: {
             source(n){
                 this.navs = n;
+            },
+            currentKeepAlive(n){
+                this.openid = n.id;
             }
         },
         computed: {
@@ -48,11 +59,10 @@
         methods: {
             go( item ){
                 if( item.url ){
-                    this.openId = -1;
                     this.$emit('getvalue', item);
                 }else{
                     // 展开收起子菜单
-                    this.openId = this.openId > 0 ? -1 : item.id;
+                    this.openid = this.openid == item.id ? -1 : item.id;
                     this.$emit('refreshscroll');
                 }
             }
@@ -62,7 +72,7 @@
         }
     }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
     .component-nav {
         ul[data-level="1"]{
             > li {
