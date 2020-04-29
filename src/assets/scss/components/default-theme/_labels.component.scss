@@ -8,3 +8,8 @@ $compLabelCloseColor: #939393; // 关闭图标颜色
 $compLabelCloseHoverBackground: transparent; // 关闭图标鼠标移上去背景色
 $compLabelCloseHoverColor: #939393; // 关闭图标鼠标移上去颜色
 $compLabelBorderColor: 1px solid rgba(229,229,229,1); // 标签边框颜色
+$compLabelSelectBackground: #fff; // 更多标签下拉背景色
+$compLabelSelectShadow: 0 0 10px rgba(0, 0, 0, .1); // 更多标签下拉阴影
+$compLabelSelectBottomBorder: 1px solid #e5e5e5; // 更多标签下拉边框
+$compLabelSelectHoverBackground: #F2F5F9; // 更多标签下拉鼠标移上去背景色
+$compLabelSelectActiveBackground: #F2F5F9; // 更多标签下拉选中背景色

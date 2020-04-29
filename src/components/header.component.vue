@@ -50,6 +50,10 @@
 </script>
 <style scoped lang="scss">
     .component-header {
+        align-items: center;
+        display: flex;
+        height: 100%;
+
         .toggle {
             cursor: pointer;
             font-size: 20px;

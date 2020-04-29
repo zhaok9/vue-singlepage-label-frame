@@ -67,6 +67,26 @@ $mainBackground: #EFF2F6; // 内容部分背景色
                 }
             }
         }
+        .more {
+            ul {
+                box-shadow: $compLabelSelectShadow;
+                background: $compLabelSelectBackground;
+
+                li {
+                    &:hover {
+                        background: $compLabelSelectHoverBackground;
+                    }
+
+                    &.active {
+                        background: $compLabelSelectActiveBackground;
+                    }
+
+                    &:not(:last-child) {
+                        border-bottom: $compLabelSelectBottomBorder;
+                    }
+                }
+            }
+        }
     }
 
     .component-nav {
