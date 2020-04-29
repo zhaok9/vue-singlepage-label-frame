@@ -93,6 +93,9 @@ $mainBackground: #EFF2F6; // 内容部分背景色
 
                     >li.active {
                         >.title {
+
+                            background: $compNaveSubActiveBackground;
+
                             span {
                                 color: $compNavSubActiveFontColor;
                             }
@@ -104,6 +107,10 @@ $mainBackground: #EFF2F6; // 内容部分背景色
                     }
                 }
             }
+        }
+
+        ul[data-level="2"]{
+            background: $compNaveSubBackground;
         }
 
         .control {

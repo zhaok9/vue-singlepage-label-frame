@@ -22,7 +22,7 @@
                         <template v-if="level == 1">
                             <i class="iconfont" :class="item.icon"></i>
                             <span>{{ item.title }}</span>
-                            <i class="iconfont icon-xiaoyuhao"></i>
+                            <i class="iconfont icon-xiaoyuhao" :class="{ rotate: currentKeepAlive.id == item.id || openid == item.id  }"></i>
                         </template>
                         <template v-else>
                             <i class="point"></i><span>{{ item.title }}</span>
@@ -151,11 +151,20 @@
                         font-size: 12px;
                         margin-right: 15px;
                         opacity: .6;
+                        transition: all .2s linear;
+                        transform: rotate(0deg);
+
+                        &.rotate {
+                            transform: rotate(90deg);
+                        }
                     }
 
                     span {
                         flex: 1;
                         margin-left: 15px;
+                        max-width: 50%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
                 }
 
@@ -166,12 +175,16 @@
                         display: flex;
                         height: 42px;
                         line-height: 42px;
+                        padding-left: 42px;
                         white-space: nowrap;
 
                         span {
                             flex: 1;
-                            margin-left: 15px;
+                            margin: 0 12px 0 21px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                             transition: all .2s linear;
+                            white-space: nowrap;
                         }
 
                         .point {
@@ -185,16 +198,16 @@
 
                 ul[data-level="2"] {
                     height: 0;
-                    margin-left: 45px;
                     overflow: hidden;
-                    width: calc(100% - 47px);
 
                     &.show {
                         height: 100%;
                     }
 
                     ul {
-                        margin-left: 26px
+                        .title {
+                            padding-left: 70px
+                        }
                     }
                 }
             }
@@ -212,7 +225,7 @@
             top: 50%;
             text-align: right;
             width: 64px;
-            z-index: 1;
+            z-index: -1;
 
             i {
                 display: inline-block;
