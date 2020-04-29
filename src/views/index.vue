@@ -48,10 +48,14 @@ export default {
             online: "",
             mScroll: null,
             navdata: [
-                { id:1, url: '/template', title: '组件实例', component: 'Page-template', active: true },
+                {
+                    id:1, url: '/template', title: '组件实例', component: 'Page-template', active: true,
+                    level: 1
+                },
                 {
                     id:2, url: '/home', title: 'comp.navigation.home', component: 'Page-home', active: false,
-                    icon: 'icon-daohangshouye'
+                    icon: 'icon-daohangshouye',
+                    level: 2
                 },
                 {
                     id:4,
@@ -59,11 +63,16 @@ export default {
                     title: '测试菜单',
                     component: '',
                     active: false ,
+                    level: 1,
                     children: [
                         {
                             id:41, pid:4, url: '/template', title: '二级菜单', component: 'Page-template', active: false,
+                            level: 2,
                             children: [
-                                { id:411, pid:41, url: '/template', title: '三级菜单', component: 'Page-template', active: false, }
+                                {
+                                    id:411, pid:41, url: '/template', title: '三级菜单', component: 'Page-template', active: false,
+                                    level: 3
+                                }
                             ]
                         }
                     ]

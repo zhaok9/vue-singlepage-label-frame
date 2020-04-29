@@ -25,7 +25,7 @@
                             <i class="iconfont icon-xiaoyuhao" :class="{ rotate: currentKeepAlive.id == item.id || openid == item.id  }"></i>
                         </template>
                         <template v-else>
-                            <i class="point"></i><span>{{ item.title }}</span>
+                            <i class="point"></i><span>{{ $t(item.title) }}</span>
                         </template>
                     </div>
                     <template v-if="item.children">
@@ -51,9 +51,29 @@
                 this.navs = n;
             },
             currentKeepAlive(n){
-                n.pid ? null : (
-                    this.openid = n.id,
-                    localStorage.removeItem('navopenid')
+                n.pid ? (
+                    n.level == 2 ? (
+                        this.openid = n.pid,
+                        localStorage.setItem('navopenid', n.pid)
+                    ) : (()=>{
+                        let loops = d => {
+                            d.some( s => {
+                                if( s.level == 2 && s.id == n.pid ){
+                                    this.openid = s.pid;
+                                    localStorage.setItem('navopenid', s.pid)
+                                    return true;
+                                }
+
+                                if( s.children && s.children.length > 0 ){
+                                    loops( s.children );
+                                }
+                            });
+                        }
+                        loops( this.navs );
+                    })()
+                ) : (
+                    localStorage.removeItem('navopenid'),
+                    this.openid = -1
                 );
                 this.refreshscroll();
             }
