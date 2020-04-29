@@ -6,6 +6,7 @@
                 <i v-if="index > 0" @click.stop="destroy( item)">&times;</i>
             </div>
         </template>
+        <div class="more">V</div>
     </div>
 </template>
 <script>
@@ -49,6 +50,7 @@
         display: flex;
         height: 32px;
         overflow: hidden;
+        position: relative;
         user-select: none;
         width: 100%;
 
@@ -89,6 +91,11 @@
             &:nth-child(1) {
                 span { text-indent: 0; }
             }
+        }
+
+        .more {
+            position: absolute;
+            right: 0;
         }
     }
 </style>

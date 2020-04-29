@@ -4,7 +4,7 @@
             <HeaderComponent></HeaderComponent>
         </header>
 
-        <nav class="nav">
+        <nav class="nav" :class="{ hide: !navigation }">
             <NavComponent level="1" :source="navdata" @getvalue="toggle" @refreshscroll="refreshscroll"></NavComponent>
         </nav>
 
@@ -47,9 +47,11 @@ export default {
         return {
             online: "",
             mScroll: null,
-            nScroll: null,
             navdata: [
-                { id:1, url: '/home', title: '首页', component: 'Page-home', active: true },
+                {
+                    id:1, url: '/home', title: '首页', component: 'Page-home', active: true,
+                    icon: 'icon-daohangshouye'
+                },
                 { id:2, url: '/template', title: '组件实例', component: 'Page-template', active: false },
                 {
                     id:4,
@@ -58,14 +60,19 @@ export default {
                     component: '',
                     active: false ,
                     children: [
-                        { id:41, pid:4, url: '/template', title: '二级菜单', component: 'Page-template', active: false, }
+                        {
+                            id:41, pid:4, url: '/template', title: '二级菜单', component: 'Page-template', active: false,
+                            children: [
+                                { id:411, pid:41, url: '/template', title: '三级菜单', component: 'Page-template', active: false, }
+                            ]
+                        }
                     ]
                 },
             ]
         }
     },
     computed: {
-        ...mapState(["complete", "token", "userinfo", "keepAliveRouter", "currentKeepAlive"]),
+        ...mapState(["complete", "token", "userinfo", "keepAliveRouter", "currentKeepAlive", "navigation"]),
     },
     watch: {
         $route(to, from) {
@@ -98,22 +105,9 @@ export default {
         that = this;
     },
     mounted() {
-        this.nScroll = new IScroll('.nav', {
-            scrollbars: true,
-            mouseWheel: true,
-            fadeScrollbars: true
-        });
     },
     methods: {
         ...mapMutations(["empty", "completed", "addKeepAliveRouter"]),
-
-        /**
-         * [refreshscroll 更新菜单滚动条]
-         * @return {[type]} [description]
-         */
-        refreshscroll(){
-            setTimeout(()=> this.nScroll.refresh(), 0)
-        },
 
         /**
          * [toggle 切换标签]

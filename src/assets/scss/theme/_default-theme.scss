@@ -29,22 +29,16 @@ $mainBackground: #EFF2F6; // 内容部分背景色
         box-shadow: $headerShadow;
         background: $headerBackground;
         color: $headerFontColor;
-        position: relative;
-        z-index: 2;
     }
 
     .nav {
         box-shadow: $navShadow;
         background: $navBackground;
         color: $navFontColor;
-        position: relative;
-        z-index: 1;
     }
 
     .main {
         background: $mainBackground;
-        position: relative;
-        z-index: 1;
     }
 
     // 组件样式 ==================================================
@@ -79,16 +73,42 @@ $mainBackground: #EFF2F6; // 内容部分背景色
         color: $compNavFontColor;
 
         ul[data-level="1"]{
-            > li {
-                > .title {
-                    border-bottom: $compNavBorderBottom;
-
-                    &.active {
-                        background: $compNaveActiveBackground;
+            >li {
+                &.active {
+                    background: $compNaveActiveBackground;
+                    >.title {
                         color: $compNaveActiveFontColor;
+                        border-bottom-color:$compNaveActiveBackground;;
+                    }
+                }
+
+                >.title {
+                    border-bottom: $compNavBorderBottom;
+                }
+
+                ul {
+                    .point {
+                        border: $compNavSubPointBorder;
+                    }
+
+                    >li.active {
+                        >.title {
+                            span {
+                                color: $compNavSubActiveFontColor;
+                            }
+                            .point {
+                                border-color: $compNavSubActivePointColor;
+                                background: $compNavSubActivePointColor;
+                            }
+                        }
                     }
                 }
             }
+        }
+
+        .control {
+            box-shadow: $compNavControlShadow;
+            background: $compNavControlBackground;
         }
     }
     // 组件样式 ==================================================

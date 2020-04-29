@@ -5,6 +5,9 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
+        // 是否显示导航
+        navigation: true,
+
         // 清理请求
         cancelTokenArr: [],
 
@@ -13,9 +16,8 @@ export const store = new Vuex.Store({
 
         // 缓存组件页
         currentKeepAlive: JSON.parse(localStorage.getItem('currentKeepAlive')) || null,
-        keepAliveRouter: JSON.parse(localStorage.getItem('keepAliveRouter')) || [],
 
-        router: localStorage.getItem('router') || '',
+        keepAliveRouter: JSON.parse(localStorage.getItem('keepAliveRouter')) || [],
 
         // socket地址
         socket: '',
@@ -81,10 +83,6 @@ export const store = new Vuex.Store({
         setEnableLoad( state, value ){
             state.enableload = value;
         },
-        setRouter( state, value ){
-            state.router = value;
-            localStorage.setItem('router', JSON.stringify(value));
-        },
         saveToken( state, value ){
             state.token = value;
             localStorage.setItem('token', value);
@@ -92,6 +90,9 @@ export const store = new Vuex.Store({
         saveUserInfo( state, value ){
             state.userinfo = value;
             localStorage.setItem('userinfo', JSON.stringify(value));
+        },
+        toggleNavigation( state, value ){
+            state.navigation = value;
         },
         empty( state ){
             state.token = '';
