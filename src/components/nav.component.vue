@@ -41,7 +41,7 @@
         data() {
             return {
                 navs: [],
-                openid: -1,
+                openid: localStorage.getItem('navopenid' ) || -1,
                 nScroll: null,
             }
         },
@@ -51,7 +51,10 @@
                 this.navs = n;
             },
             currentKeepAlive(n){
-                n.pid ? null : this.openid = n.id;
+                n.pid ? null : (
+                    this.openid = n.id,
+                    localStorage.removeItem('navopenid')
+                );
                 this.refreshscroll();
             }
         },
@@ -94,6 +97,7 @@
                 }else{
                     // 展开收起子级菜单、点击子级菜单
                     item.pid ? this.$emit('getvalue', item) : (this.openid = this.openid == item.id ? -1 : item.id);
+                    localStorage.setItem('navopenid', this.openid );
                     this.$emit('refreshscroll');
                 }
             }

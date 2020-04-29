@@ -1,6 +1,6 @@
 <template>
     <div class="component-header">
-        <i class="iconfont icon-caidan2 toggle" @click.stop="toggleNav"></i>
+        <i class="iconfont icon-caidan2 toggle" :class="{ rotate: !navigation }" @click.stop="toggleNav"></i>
         <el-select v-model="languaged" placeholder="请选择" @change="toggleLanguage">
             <el-option
                 v-for="item in language"
@@ -18,7 +18,7 @@
         data() {
             return {
                 language: [{ type:'zh', label:'简体中文' }, { type: 'en', label: '英文' }],
-                languaged: 'zh'
+                languaged: localStorage.getItem('locale') || 'zh'
             }
         },
         props: [],
@@ -53,6 +53,12 @@
         .toggle {
             cursor: pointer;
             font-size: 20px;
+        }
+
+        .rotate {
+            position: relative;
+            top: -1px;
+            transform: rotate(180deg);
         }
     }
 </style>
