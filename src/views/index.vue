@@ -48,11 +48,11 @@ export default {
             online: "",
             mScroll: null,
             navdata: [
+                { id:1, url: '/template', title: '组件实例', component: 'Page-template', active: true },
                 {
-                    id:1, url: '/home', title: '首页', component: 'Page-home', active: true,
+                    id:2, url: '/home', title: 'comp.navigation.home', component: 'Page-home', active: false,
                     icon: 'icon-daohangshouye'
                 },
-                { id:2, url: '/template', title: '组件实例', component: 'Page-template', active: false },
                 {
                     id:4,
                     url: '',

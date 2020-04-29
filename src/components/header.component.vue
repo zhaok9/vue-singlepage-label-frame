@@ -1,6 +1,14 @@
 <template>
     <div class="component-header">
         <i class="iconfont icon-caidan2 toggle" @click.stop="toggleNav"></i>
+        <el-select v-model="languaged" placeholder="请选择" @change="toggleLanguage">
+            <el-option
+                v-for="item in language"
+                :key="item.type"
+                :label="item.label"
+                :value="item.type">
+            </el-option>
+        </el-select>
     </div>
 </template>
 <script>
@@ -9,6 +17,8 @@
         name: "ComponentHeader",
         data() {
             return {
+                language: [{ type:'zh', label:'简体中文' }, { type: 'en', label: '英文' }],
+                languaged: 'zh'
             }
         },
         props: [],
@@ -27,6 +37,11 @@
             toggleNav(){
                 this.toggleNavigation( !this.navigation );
             },
+
+            toggleLanguage( type ){
+                localStorage.setItem('locale', type);
+                this.$i18n.locale = type;
+            }
         },
         beforeDestroy(){
 

@@ -21,7 +21,7 @@
                     <div class="title">
                         <template v-if="level == 1">
                             <i class="iconfont" :class="item.icon"></i>
-                            <span>{{ item.title }}</span>
+                            <span>{{ $t(item.title) }}</span>
                             <i class="iconfont icon-xiaoyuhao" :class="{ rotate: currentKeepAlive.id == item.id || openid == item.id  }"></i>
                         </template>
                         <template v-else>
@@ -68,7 +68,7 @@
                 mouseWheel: true,
                 fadeScrollbars: true
             });
-            this.$emit('getvalue', this.currentKeepAlive || this.navs[0]);
+            this.$emit('getvalue', this.currentKeepAlive || this.navs.filter( f => f.active )[0]);
         },
         methods: {
 

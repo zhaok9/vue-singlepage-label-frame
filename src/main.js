@@ -4,6 +4,7 @@ import router from "./router";
 import ElementUI from "element-ui";
 import Components from './components';
 import { store } from './store';
+import i18n from './i18n/';
 import './service';
 import './api';
 
@@ -25,5 +26,6 @@ for( let key in Components ){
 new Vue({
     router,
     store,
+    i18n,
     render: h => h(App),
 }).$mount('#app')

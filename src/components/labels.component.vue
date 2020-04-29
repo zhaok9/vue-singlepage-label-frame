@@ -2,7 +2,7 @@
     <div class="component-labels">
         <template v-for="( item, index ) of labels">
             <div :class="{ active: item.active }" @click.stop="toggle(item)">
-                <span>{{ item.title }}</span>
+                <span>{{ $t(item.title) }}</span>
                 <i v-if="index > 0" @click.stop="destroy( item)">&times;</i>
             </div>
         </template>
