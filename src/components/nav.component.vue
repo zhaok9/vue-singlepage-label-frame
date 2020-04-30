@@ -18,7 +18,7 @@
         template: `
             <ul :data-level="level">
                 <li v-for="item of navs" @click.stop="go( item )" :class="{ active: currentKeepAlive.id == item.id }">
-                    <div class="title">
+                    <div class="title" :class="{ open: openid == item.id, list: !item.url }">
                         <template v-if="level == 1">
                             <i class="iconfont" :class="item.icon"></i>
 
@@ -105,6 +105,7 @@
                 fadeScrollbars: true
             });
             this.$emit('getvalue', this.currentKeepAlive || this.navs.filter( f => f.active )[0]);
+            this.openid > -1 ? this.refreshscroll() : null;
         },
         methods: {
 
@@ -167,13 +168,17 @@
             >li {
                 transition: all .2s linear;
 
+                &:nth-child(1) {
+                    margin-top: -1px;
+                }
+
                 >.title {
                     align-items: center;
                     display: flex;
                     flex-wrap: nowrap;
                     height: 42px;
-                    margin: 0 20px;
-                    transition: all .2s linear;
+                    margin: 0 20px 0 20px;
+                    transition: background .2s linear, color .2s linear, border .2s linear;
                     white-space: nowrap;
 
                     i:nth-child(1){
@@ -202,6 +207,16 @@
                         max-width: 50%;
                         overflow: hidden;
                         text-overflow: ellipsis;
+                    }
+
+                    &.open {
+                        height: 43px;
+                        line-height: 41px;
+                        position: relative;
+                    }
+
+                    &.list {
+                        transition: none;
                     }
                 }
 

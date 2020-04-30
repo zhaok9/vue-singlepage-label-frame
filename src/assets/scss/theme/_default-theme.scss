@@ -7,11 +7,11 @@ $app-bg: #fff;
     $headerShadow: 7px 0px 9px 1px rgba(223,223,223,0.94);
 // end 顶部 ================================================
 
-// 菜单 ================================================
+// 导航 ================================================
     $navBackground: #fff;
     $navFontColor: #1a1d20;
     $navShadow: 2px 0px 7px 0px rgba(209,209,209,0.2);
-// end 菜单 ================================================
+// end 导航 ================================================
 
 $mainBackground: #F2F5F9; // 内容部分背景色
 
@@ -93,20 +93,29 @@ $mainBackground: #F2F5F9; // 内容部分背景色
         color: $compNavFontColor;
 
         ul[data-level="1"]{
+            border-top: $compNavBorder;
+            border-bottom: $compNavBorder;
+
             >li {
                 &.active {
                     background: $compNaveActiveBackground;
                     >.title {
                         color: $compNaveActiveFontColor;
-                        border-bottom-color:$compNaveActiveBackground;;
+                        border-top-color: $compNaveActiveBackground;
                     }
                 }
 
                 >.title {
-                    border-bottom: $compNavBorderBottom;
+                    border-top: $compNavBorderBottom;
+                    border-bottom: 1px solid transparent;
+
+                    &.open {
+                        border-bottom: $compNavBorderBottom;
+                    }
                 }
 
                 ul {
+
                     .point {
                         border: $compNavSubPointBorder;
                     }
