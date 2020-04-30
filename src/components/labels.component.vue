@@ -2,7 +2,13 @@
     <div class="component-labels">
         <template v-for="( item, index ) of labels">
             <div :class="{ active: item.active }" @click.stop="toggle( item )">
-                <span>{{ $t(item.title) }}</span>
+                <template v-if="$u.strlen( $t(item.title) ) > 8">
+                    <el-tooltip :content="$t(item.title)" placement="top"><span>{{ $t(item.title) }}</span></el-tooltip>
+                </template>
+                <template v-else>
+                    <span>{{ $t(item.title) }}</span>
+                </template>
+
                 <i v-if="index > 0" @click.stop="destroy( item )">&times;</i>
             </div>
         </template>
@@ -10,7 +16,7 @@
             <i class="iconfont icon-xiaoyuhao"></i>
             <ul :class="{ show: ismore }">
                 <li v-for="(item, index) of morelabels" @click.stop="toggle( item )" :class="{ active: item.active }">
-                    <span>{{ $t(item.title) }}</span>
+                    <el-tooltip :content="$t(item.title)" placement="bottom"><span>{{ $t(item.title) }}</span></el-tooltip>
                     <i @click.stop="destroy( item )">&times;</i>
                 </li>
             </ul>

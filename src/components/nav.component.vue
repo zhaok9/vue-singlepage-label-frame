@@ -21,11 +21,24 @@
                     <div class="title">
                         <template v-if="level == 1">
                             <i class="iconfont" :class="item.icon"></i>
-                            <span>{{ $t(item.title) }}</span>
+
+                            <template v-if="$u.strlen( $t(item.title) ) > 8">
+                                <el-tooltip :content="$t(item.title)" placement="right"><span>{{ $t(item.title) }}</span></el-tooltip>
+                            </template>
+                            <template v-else>
+                                <span>{{ $t(item.title) }}</span>
+                            </template>
+
                             <i class="iconfont icon-xiaoyuhao" :class="{ rotate: currentKeepAlive.id == item.id || openid == item.id  }"></i>
                         </template>
                         <template v-else>
-                            <i class="point"></i><span>{{ $t(item.title) }}</span>
+                            <i class="point"></i>
+                            <template v-if="$u.strlen( $t(item.title) ) > 16">
+                                <el-tooltip :content="$t(item.title)" placement="right"><span>{{ $t(item.title) }}</span></el-tooltip>
+                            </template>
+                            <template v-else>
+                                <span>{{ $t(item.title) }}</span>
+                            </template>
                         </template>
                     </div>
                     <template v-if="item.children">
@@ -185,7 +198,7 @@
 
                     span {
                         flex: 1;
-                        margin-left: 15px;
+                        margin: 0 15px;
                         max-width: 50%;
                         overflow: hidden;
                         text-overflow: ellipsis;
@@ -204,7 +217,7 @@
 
                         span {
                             flex: 1;
-                            margin: 0 12px 0 21px;
+                            margin: 0 21px;
                             overflow: hidden;
                             text-overflow: ellipsis;
                             transition: all .2s linear;

@@ -5,6 +5,7 @@ import ElementUI from "element-ui";
 import Components from './components';
 import { store } from './store';
 import i18n from './i18n/';
+import './plugins/';
 import './service';
 import './api';
 
