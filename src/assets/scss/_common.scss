@@ -13,3 +13,11 @@
         z-index: -1;
     }
 }
+
+// element ui 样式重写
+.el-select-dropdown {
+    .el-select-dropdown__item,
+    .el-select-dropdown__empty {
+        font-size: 12px;
+    }
+}

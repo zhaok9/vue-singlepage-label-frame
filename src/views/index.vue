@@ -9,7 +9,7 @@
         </nav>
 
         <div class="content">
-            <LablesComponent :source="keepAliveRouter" @getvalue="toggle"></LablesComponent>
+            <LabelsComponent :source="keepAliveRouter" @getvalue="toggle"></LabelsComponent>
             <div class="main">
                 <!-- 模块入口 -->
                 <keep-alive :include="keepAliveRouter.map( f => f.component).join()">
@@ -49,34 +49,35 @@ export default {
             mScroll: null,
             navdata: [
                 {
-                    id:1, url: '/template', title: '组件实例', component: 'Page-template', active: true,
+                    id:1, url: '/template', title: 'comp.navigation.template', component: 'Page-template', active: true,
+                    icon: 'icon-UPMSquanxianicon-',
                     level: 1
                 },
                 {
                     id:2, url: '/home', title: 'comp.navigation.home', component: 'Page-home', active: false,
                     icon: 'icon-daohangshouye',
-                    level: 2
+                    level: 1
                 },
-                {
-                    id:4,
-                    url: '',
-                    title: '测试菜单',
-                    component: '',
-                    active: false ,
-                    level: 1,
-                    children: [
-                        {
-                            id:41, pid:4, url: '/template', title: '二级菜单', component: 'Page-template', active: false,
-                            level: 2,
-                            children: [
-                                {
-                                    id:411, pid:41, url: '/template', title: '三级菜单', component: 'Page-template', active: false,
-                                    level: 3
-                                }
-                            ]
-                        }
-                    ]
-                },
+                // {
+                //     id:4,
+                //     url: '',
+                //     title: '测试菜单',
+                //     component: '',
+                //     active: false ,
+                //     level: 1,
+                //     children: [
+                //         {
+                //             id:41, pid:4, url: '/template', title: '二级菜单', component: 'Page-template', active: false,
+                //             level: 2,
+                //             children: [
+                //                 {
+                //                     id:411, pid:41, url: '/template', title: '三级菜单', component: 'Page-template', active: false,
+                //                     level: 3
+                //                 }
+                //             ]
+                //         }
+                //     ]
+                // },
             ]
         }
     },

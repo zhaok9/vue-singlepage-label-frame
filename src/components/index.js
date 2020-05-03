@@ -1,6 +1,7 @@
 import HeaderComponent from './header.component';
 import NavComponent from './nav.component';
-import LablesComponent from './labels.component';
+import LabelsComponent from './labels.component';
+import FilterComponent from './filter.component';
 
 const
     Register = [
@@ -8,7 +9,8 @@ const
         // global false 不注册成为全局组件, 在 vue 页面使用需要单独 import 组件
         { name: 'HeaderComponent', component: HeaderComponent, global: true },
         { name: 'NavComponent', component: NavComponent, global: true },
-        { name: 'LablesComponent', component: LablesComponent, global: true },
+        { name: 'LabelsComponent', component: LabelsComponent, global: true },
+        { name: 'FilterComponent', component: FilterComponent, global: true },
     ],
     Components = {
         install( Vue ) {

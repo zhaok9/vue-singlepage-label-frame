@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import STATIC_SOURCE from './static.source';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
+        STATIC_SOURCE, // 共用静态数据源
+
         // 是否显示导航
         navigation: true,
 
@@ -33,7 +36,6 @@ export const store = new Vuex.Store({
 
         // 本地登录时常
         beforetime: localStorage.getItem('beforetime') || '',
-
     },
     mutations: {
         // 跳转路由清理请求 ==================================================
@@ -74,6 +76,14 @@ export const store = new Vuex.Store({
         removeKeepAliveRouter( state, value ){
             state.keepAliveRouter = state.keepAliveRouter.filter( f => f.component != value.component );
             localStorage.setItem('keepAliveRouter', JSON.stringify(state.keepAliveRouter) );
+        },
+
+        // 添加共用数据源
+        addSource( state, value ){
+            // value = { key, [] }
+            if( value.key ){
+                state.STATIC_SOURCE[ value.key ] = value.val;
+            }
         },
 
         // 页面(组件)是否加载完成
