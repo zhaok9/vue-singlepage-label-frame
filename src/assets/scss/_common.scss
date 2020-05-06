@@ -21,3 +21,54 @@
         font-size: 12px;
     }
 }
+
+.el-textarea {
+    font-size: 12px;
+    textarea {
+        resize:none;
+    }
+}
+
+.el-table {
+    font-size: 12px;
+    th.is-leaf { border: none; }
+
+    .el-table__header-wrapper,
+    .el-table__fixed-header-wrapper {
+        border:1px solid rgba(229,229,229,1);
+
+        th {
+            background: rgba(248,249,251,1);
+            color: #535965;
+            font-size: 12px;
+        }
+    }
+
+    .el-table__body-wrapper,
+    .el-table__fixed-body-wrapper {
+        tr:nth-child(1){
+            td { border: none; }
+        }
+    }
+
+    .el-table-column--selection .cell {
+        padding: 0 10px;
+    }
+
+    .table-controls {
+        .cell{
+            display: flex;
+            white-space: nowrap;
+
+            *:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+.el-pagination {
+    font-size: 12px;
+
+    .el-pagination__jump, span { font-size: inherit !important; }
+}

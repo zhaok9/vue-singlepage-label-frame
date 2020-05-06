@@ -2,6 +2,7 @@ import HeaderComponent from './header.component';
 import NavComponent from './nav.component';
 import LabelsComponent from './labels.component';
 import FilterComponent from './filter.component';
+import TableComponent from './table.component';
 
 const
     Register = [
@@ -11,6 +12,7 @@ const
         { name: 'NavComponent', component: NavComponent, global: true },
         { name: 'LabelsComponent', component: LabelsComponent, global: true },
         { name: 'FilterComponent', component: FilterComponent, global: true },
+        { name: 'TableComponent', component: TableComponent, global: true },
     ],
     Components = {
         install( Vue ) {
