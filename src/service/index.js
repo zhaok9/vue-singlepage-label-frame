@@ -65,7 +65,7 @@ axios.interceptors.request.use(
     config => {
         const token = store.state.token, api = config.url;
 
-        if (store.state.enableload) {
+        if (!store.state.enableload) {
             // 加载进度条
             !loadHandle.el ? loadHandle.el = document.querySelector('#loading') : null;
             !loadHandle.mask ? loadHandle.mask = document.querySelector('.loading-mask') : null;
@@ -95,7 +95,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
 
-        if (store.state.enableload) {
+        if (!store.state.enableload) {
 
             const count = loadHandle.count;
 
@@ -125,6 +125,11 @@ axios.interceptors.response.use(
             }),
             loadHandle.hide(false)
         ) : null;
+
+        if( err.message == 'cancelRequest' ){
+            loadHandle.hide(false)
+        }
+
         return Promise.reject(err);
     }
 );

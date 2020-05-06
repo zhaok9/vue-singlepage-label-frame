@@ -11,6 +11,7 @@
 </template>
 <script>
     import { mapMutations, mapState } from "vuex";
+    import { store } from '../store';
     import IScroll from 'iscroll/build/iscroll-probe';
 
     Vue.component('navtree', {
@@ -89,6 +90,7 @@
                     this.openid = -1
                 );
                 this.refreshscroll();
+                store.commit('clearToken') // 取消请求
             }
         },
         computed: {

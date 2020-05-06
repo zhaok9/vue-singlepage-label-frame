@@ -3,7 +3,7 @@
         <div class="left">
             <template v-for="item of configs.filter( f => f.type == 'textarea')">
                 <div class="filter-row">
-                    <el-tooltip v-if="$u.strlen( $t(item.label) ) > 16" class="item" effect="dark" :content="$t(item.label)" placement="top">
+                    <el-tooltip v-if="$u.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
                         <span class="filter-label">
                             {{ $t(item.label) }}
                         </span>
@@ -27,7 +27,7 @@
         <div class="center">
             <template v-for="item of configs.filter( f => f.type !='textarea' )">
                 <div class="filter-row">
-                    <el-tooltip v-if="$u.strlen( $t(item.label) ) > 16" class="item" effect="dark" :content="$t(item.label)" placement="top">
+                    <el-tooltip v-if="$u.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
                         <span class="filter-label">
                             {{ $t(item.label) }}
                         </span>

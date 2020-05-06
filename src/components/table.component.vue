@@ -1,7 +1,7 @@
 <template>
     <div class="component-table">
-        <div class="toolbar" v-if="table.topControl.length > 0">
-            <template v-for="(item, index) of table.topControl">
+        <div class="toolbar" :class="{ 'no-toolbar': table.topControl.length == 0 }">
+            <template v-for="(item, index) of table.topControl" v-if="table.topControl.length > 0">
                 <el-button @click="$emit('control', { action: item, rows: selection } )" size="mini">
                     <label>
                         <i class="iconfont" :class="item.icon"></i>
@@ -68,11 +68,10 @@ export default {
     data() {
         // table 组件默认配置
         const defaults = {
-            showpage: true,
+            showpage: true, // 是否显示分页
             serialnumber: true, // 是否显示序号
             checkbox: true ,// 是否显示复选框
-            handle:true,//是否显示操作
-            tooltip:true, //是否显示holer;
+            tooltip: true, // 是否显示holer;
             fixed: true, // 固定顶部和分页
         };
 
@@ -81,8 +80,7 @@ export default {
             option: defaults,
             table: { data: [], columnControl: [], topControl: [], column: [], pagination: {} },
             outpages: { page: 1, size: 10 },
-            selection: [],
-            container: null
+            selection: []
         }
     },
     props: ["source", "options"],
@@ -146,7 +144,7 @@ export default {
          * @return {[type]} [description]
          */
         columnWidth(){
-            return (item, length) => item.width ? item.width : length < 18 ? 'auto' : 100;
+            return (item, length) => item.width ? item.width : length < 10 ? 'auto' : 100;
         }
     },
     created(){
@@ -169,7 +167,7 @@ export default {
     },
 
     beforeDestroy(){
-        // this.container.removeEventListener('scroll', this.setHeaderAndPage);
+
     }
 }
 
@@ -181,6 +179,8 @@ export default {
 
         .toolbar {
             padding: 20px 0;
+
+            &.no-toolbar { padding: 20px 0 0 0; }
 
             button {
                 cursor: pointer;
