@@ -30,10 +30,11 @@
 
             <!-- 操作列 -->
             <el-table-column
-                :label="$t('comp.table.operating')"
-                :width="controlWidth()"
+                v-if="table.columnControl.length > 0"
+                fixed="right"
                 class-name="table-controls"
-                v-if="table.columnControl.length > 0">
+                :label="$t('comp.table.operating')"
+                :width="controlWidth()">
                 <template slot-scope="scope">
                     <template v-for="(item, index) of table.columnControl">
                         <template v-if="$eval(scope.row, item.if) ">
@@ -55,9 +56,9 @@
             :page-size="table.pagination.size"
             :page-sizes="[10, 20, 30, 50]"
             :total="table.pagination.total"
-            :current-page="table.pagination.page"
+            :current-page="table.pagination.current"
             :style="{ textAlign: 'center', padding: '20px 0' }"
-            @current-change="togglePage($event, 'page')"
+            @current-change="togglePage($event, 'current')"
             @size-change="togglePage($event, 'size')"
         ></el-pagination>
     </div>
@@ -79,7 +80,7 @@ export default {
             // 组件默认配置
             option: defaults,
             table: { data: [], columnControl: [], topControl: [], column: [], pagination: {} },
-            outpages: { page: 1, size: 10 },
+            outpages: { current: 1, size: 10 },
             selection: []
         }
     },
@@ -91,7 +92,7 @@ export default {
         source(n) {
             this.table = n;
             this.outpages = {
-                page: this.table.pagination.page,
+                current: this.table.pagination.current,
                 size: this.table.pagination.size
             };
         }
@@ -144,7 +145,7 @@ export default {
          * @return {[type]} [description]
          */
         columnWidth(){
-            return (item, length) => item.width ? item.width : length < 10 ? 'auto' : 100;
+            return (item, length) => item.width ? item.width : length < 10 ?  'auto' : 130;
         }
     },
     created(){
@@ -160,7 +161,7 @@ export default {
         },
 
         togglePage( val, type ){
-            type == 'size' ? this.outpages.page = 1 :'';
+            type == 'size' ? this.outpages.current = 1 :'';
             this.outpages[ type ] = val;
             this.$emit('pages', this.outpages);
         }

@@ -49,12 +49,13 @@
                     <el-select
                         v-if="item.type == 'select'"
                         v-model="outval[ item.field ]"
+                        :popper-append-to-body="false"
                         :placeholder="$t( item.placeholder ) + $t(item.label)"
                         :disabled="item.disabled">
                         <el-option
                             v-for="sel in (typeof item.data === 'string' ? STATIC_SOURCE[ item.data ] : item.data )"
-                            :key="$t( sel[ item.keys[0] ] )"
-                            :label="$t( sel[ item.keys[0] ] )"
+                            :key="sel[ item.keys[1] ]"
+                            :label="item.i18n ? $t(sel[ item.keys[0] ]) : sel[ item.keys[0] ]"
                             :value="sel[ item.keys[1] ]">
                         </el-option>
                     </el-select>
@@ -65,14 +66,16 @@
                         v-model="outval[ item.field ]"
                         filterable
                         remote
+                        :popper-append-to-body="false"
                         :disabled="item.disabled"
                         :placeholder="$t( item.placeholder )"
+                        :focus="remoteSelected( item )"
                         :remote-method="remoteMethod"
                         :loading="loading">
                         <el-option
                             v-for="sel in remotelist"
-                            :key="sel[ item.keys[0] ]"
-                            :label="sel[ item.keys[0] ]"
+                            :key="sel[ item.keys[1] ]"
+                            :label="item.i18n ? $t(sel[ item.keys[0] ]) : sel[ item.keys[0] ]"
                             :value="sel[ item.keys[1] ]">
                         </el-option>
                     </el-select>
@@ -96,6 +99,7 @@
                 configs: [], // 筛选配置
                 outval: {}, // 返回数据
                 remotelist: [], // 远程搜索下拉数据源
+                remoteselected: null,
             }
         },
         props: ["source"],
@@ -135,6 +139,15 @@
             },
 
             /**
+             * [remoteSelected 获取焦点的远程搜索]
+             * @param  {[type]} item [description]
+             * @return {[type]}      [description]
+             */
+            remoteSelected( item ){
+                this.remoteselected = item;
+            },
+
+            /**
              * [remoteMethod 远程搜索方法]
              * @param  {[type]} query [description]
              * @return {[type]}       [description]
@@ -171,18 +184,23 @@
             justify-content: flex-start;
             .filter-row {
                 height: calc(100% - 20px);
+                margin: 0 20px 20px 0;
                 width: 100%;
 
-                .filter-label { height: 87%; }
+                .filter-label { height: calc(100% - 13px); }
             }
         }
 
         .center {
+            align-items: flex-start;
             display: flex;
             flex-wrap: wrap;
             flex: 3;
 
-            .filter-row { width: 50%; }
+            .filter-row {
+                margin: 0 20px 20px 0;
+                width: calc(50% - 20px);
+            }
         }
 
         .right {
@@ -190,7 +208,7 @@
             display: flex;
             flex: 1;
             justify-content: center;
-            padding: 0 55px;
+            padding: 0 30px 0 10px;
 
             button {
                 width: 80px;
@@ -201,8 +219,6 @@
             &-row {
                 align-items: center;
                 display: flex;
-                margin-bottom: 20px;
-                // width: 350px;
             }
 
             &-label {

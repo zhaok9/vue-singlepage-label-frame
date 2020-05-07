@@ -10,9 +10,9 @@ const en = {
             // 筛选组件
             filter: {
                 placeholder: {
-                    input: 'Please enter',
-                    select: 'Please choose',
-                    remoteselect: 'Please enter key words',
+                    input: 'Please enter ',
+                    select: 'Please choose ',
+                    remoteselect: 'Please enter key words ',
                     textarea: 'Please enter search content, multiple line breaks or separated by ","',
                 },
                 reset: 'Reset',

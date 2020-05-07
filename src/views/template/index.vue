@@ -43,7 +43,8 @@ export default {
                     disabled: false,
                     placeholder: 'comp.filter.placeholder.select',
                     data: 'sex', // 字符串(静态数据源key)或者数组
-                    value: 1 // 默认值为数据源的 value
+                    value: 1, // 默认值为数据源的 value
+                    i18n: true
                 },
 
                 {

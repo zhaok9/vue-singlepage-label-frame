@@ -47,6 +47,7 @@ export default {
         return {
             online: "",
             mScroll: null,
+            sourcecomplate: false,
             navdata: [
                 {
                     id:1, url: '/template', title: 'comp.navigation.template', component: 'Page-template', active: true,
@@ -82,24 +83,24 @@ export default {
         }
     },
     computed: {
-        ...mapState(["complete", "token", "userinfo", "keepAliveRouter", "currentKeepAlive", "navigation"]),
+        ...mapState(["complete", "token", "userinfo", "keepAliveRouter", "currentKeepAlive", "navigation", "STATIC_SOURCE"]),
     },
     watch: {
         $route(to, from) {
         },
         complete( bool ){
-            if( bool ){
-                this.mScroll = new IScroll('.main', {
-                    scrollbars: true,
-                    mouseWheel: true,
-                    fadeScrollbars: true
-                });
-            }else{
-                if( this.mScroll ){
-                    this.mScroll.destroy();
-                    this.mScroll = null;
-                }
-            }
+            // if( bool ){
+            //     this.mScroll = new IScroll('.main', {
+            //         scrollbars: true,
+            //         mouseWheel: true,
+            //         fadeScrollbars: true
+            //     });
+            // }else{
+            //     if( this.mScroll ){
+            //         this.mScroll.destroy();
+            //         this.mScroll = null;
+            //     }
+            // }
         },
         currentKeepAlive(n){
             // this.toggle(n, false);
@@ -115,6 +116,7 @@ export default {
         that = this;
     },
     mounted() {
+        this.getSource();
     },
     methods: {
         ...mapMutations(["empty", "completed", "addKeepAliveRouter"]),
@@ -125,20 +127,48 @@ export default {
          * @return {[type]}      [description]
          */
         toggle( item ){
-            this.completed(false);
+            if( this.sourcecomplate ){
 
-            let loops = d => {
-                d.forEach( f => {
-                    if( f.children && f.children.length > 0 ){
-                        loops( f.children );
-                    }
-                    f.active = f.component == item.component && f.id == item.id;
-                });
+                this.completed(false);
+
+                let current = item || this.currentKeepAlive || this.navdata[0];
+
+                let loops = d => {
+                    d.forEach( f => {
+                        if( f.children && f.children.length > 0 ){
+                            loops( f.children );
+                        }
+                        f.active = f.component == current.component && f.id == current.id;
+                    });
+                }
+                loops( this.navdata );
+
+                this.addKeepAliveRouter( current );
+                loader();
             }
-            loops( this.navdata );
+        },
 
-            this.addKeepAliveRouter( item );
-            loader();
+        /**
+         * [getSource 获取数据源]
+         * @return {[type]} [description]
+         */
+        getSource(){
+            this.http.sync([
+                // new Promise((resolve, reject) => this.api.getDeviceSelectData( res => {
+                //     if( res.code == 0 ){
+                //         let data = res.data;
+
+                //         for( let key in data ){
+                //             this.addSource( { key, val: data[ key ] });
+                //         }
+                //     }
+                //     resolve();
+                // }))
+            ]).then(() => {
+                this.sourcecomplate = true;
+                this.toggle();
+                console.log( this.STATIC_SOURCE )
+            });
         }
     },
     beforeDestroy(){}
