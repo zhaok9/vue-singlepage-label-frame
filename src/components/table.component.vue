@@ -149,7 +149,7 @@ export default {
          * @return {[type]} [description]
          */
         columnWidth(){
-            return (item, length) => item.width ? item.width : length < 10 ?  'auto' : 130;
+            return (item, length) => item.width ? item.width : length < 10 ?  200 : 150;
         }
     },
     created(){

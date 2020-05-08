@@ -136,6 +136,7 @@ module.exports = {
                 "//unpkg.com/element-ui@2.13.1/lib/theme-chalk/index.css"
             ],
             js: [
+                !IS_PROD ? "https://unpkg.com/vue@2.6.11/dist/vue.js" :
                 "//unpkg.com/vue@2.6.11/dist/vue.min.js", // 访问https://unpkg.com/vue/dist/vue.min.js获取最新版本
                 "//unpkg.com/vue-router@3.1.6/dist/vue-router.min.js",
                 "//unpkg.com/vuex@3.2.0/dist/vuex.min.js",

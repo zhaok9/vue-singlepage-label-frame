@@ -1,7 +1,7 @@
 <template>
     <div class="component-nav">
         <div class="scroll-nav" :class="{ hide: !navigation }">
-            <navtree :navs="navs" :openid="openid" :level="level" :currentKeepAlive="currentKeepAlive" :go="go"></navtree>
+            <navtree :navs="navs" :openid="openid" :level="level" :currentKeepAlive="currentKeepAlive || this.navs[0]" :go="go"></navtree>
         </div>
         <!-- 展开收起 -->
         <div class="control" @click.stop="toggleNav">

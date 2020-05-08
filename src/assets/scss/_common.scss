@@ -24,6 +24,16 @@
 
         &.on {
             z-index: 999;
+
+            i {
+                animation: turn 1s linear infinite;
+            }
+        }
+
+        i {
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 5px;
         }
     }
 }
@@ -45,7 +55,10 @@
 
 .el-table {
     font-size: 12px;
-    th.is-leaf { border: none; }
+    th {
+        padding: 7px 0;
+        &.is-leaf { border: none; }
+    }
 
     .el-table__header-wrapper,
     .el-table__fixed-header-wrapper {

@@ -5,7 +5,7 @@
         </header>
 
         <nav class="nav" :class="{ hide: !navigation }">
-            <NavComponent level="1" :source="navdata" @getvalue="toggle" @refreshscroll="refreshscroll"></NavComponent>
+            <NavComponent level="1" :source="navdata" @getvalue="toggle"></NavComponent>
         </nav>
 
         <div class="content">
@@ -13,7 +13,7 @@
             <div class="main">
                 <!-- 模块入口 -->
                 <keep-alive :include="keepAliveRouter.map( f => f.component).join()">
-                    <component v-bind:is="currentKeepAlive ? currentKeepAlive.component : ''"></component>
+                    <component v-bind:is="currentKeepAlive ? currentKeepAlive.component : ''" :params="comparams"></component>
                 </keep-alive>
             </div>
         </div>
@@ -28,15 +28,17 @@ let that = null;
 const loader = () => {
     if( that ){
         Vue.component(`${ that.currentKeepAlive.component }`, resolve => {
-            setTimeout(() => {
-                require([`.${ that.currentKeepAlive.url }`], resolve)
-                .catch( res => {
-                    if( that ){
-                        that.$router.push({ path: '/404' });
-                    }
-                });
-                setTimeout(() => that.completed(true), 60);
-            }, 0);
+            if( that.sourcecomplate){
+                setTimeout(() => {
+                    require([`.${ that.currentKeepAlive.url }`], resolve)
+                    .catch( res => {
+                        if( that ){
+                            that.$router.push({ path: '/404' });
+                        }
+                    });
+                    setTimeout(() => that.completed(true), 60);
+                }, 0);
+            }
         });
     }
 }
@@ -47,6 +49,7 @@ export default {
         return {
             online: "",
             mScroll: null,
+            comparams: null,
             sourcecomplate: false,
             navdata: [
                 {
@@ -104,6 +107,10 @@ export default {
         },
         currentKeepAlive(n){
             // this.toggle(n, false);
+            if( n.params ){
+                this.comparams = n.params;
+                this.editKeepAliveRouter(n);
+            }
             loader();
         },
         keepAliveRouter(n){
@@ -114,12 +121,14 @@ export default {
     },
     created() {
         that = this;
-    },
-    mounted() {
+        this.currentKeepAlive ? loader() : null;
         this.getSource();
     },
+    mounted() {
+
+    },
     methods: {
-        ...mapMutations(["empty", "completed", "addKeepAliveRouter"]),
+        ...mapMutations(["empty", "completed", "addKeepAliveRouter", "editKeepAliveRouter", "addSource"]),
 
         /**
          * [toggle 切换标签]

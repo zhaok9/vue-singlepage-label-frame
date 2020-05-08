@@ -73,6 +73,23 @@ export const store = new Vuex.Store({
             localStorage.setItem('currentKeepAlive', JSON.stringify(state.currentKeepAlive) )
         },
 
+        editKeepAliveRouter( state, value ){
+            if( value.params ){
+                state.keepAliveRouter = JSON.parse(localStorage.getItem('keepAliveRouter')) || [];
+                state.keepAliveRouter = state.keepAliveRouter.map( s => {
+                    if( s.component == value.component ) {
+                        s.params = value.params;
+                    }
+                    return s;
+                });
+
+                state.currentKeepAlive.params = value.params;
+
+                localStorage.setItem('keepAliveRouter', JSON.stringify(state.keepAliveRouter) );
+                localStorage.setItem('currentKeepAlive', JSON.stringify(state.currentKeepAlive) );
+            }
+        },
+
         removeKeepAliveRouter( state, value ){
             state.keepAliveRouter = state.keepAliveRouter.filter( f => f.component != value.component );
             localStorage.setItem('keepAliveRouter', JSON.stringify(state.keepAliveRouter) );
