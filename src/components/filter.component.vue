@@ -1,6 +1,6 @@
 <template>
     <div class="component-filter">
-        <div class="left">
+        <div class="left" v-if="configs.filter( f => f.type == 'textarea').length > 0">
             <template v-for="item of configs.filter( f => f.type == 'textarea')">
                 <div class="filter-row">
                     <el-tooltip v-if="$u.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
@@ -69,11 +69,11 @@
                         :popper-append-to-body="false"
                         :disabled="item.disabled"
                         :placeholder="$t( item.placeholder )"
-                        :focus="remoteSelected( item )"
                         :remote-method="remoteMethod"
-                        :loading="loading">
+                        :loading="loading"
+                        @focus="remoteSelected( item )">
                         <el-option
-                            v-for="sel in remotelist"
+                            v-for="sel in remotelist[ item.field ]"
                             :key="sel[ item.keys[1] ]"
                             :label="item.i18n ? $t(sel[ item.keys[0] ]) : sel[ item.keys[0] ]"
                             :value="sel[ item.keys[1] ]">
@@ -98,7 +98,7 @@
                 loading: false,
                 configs: [], // 筛选配置
                 outval: {}, // 返回数据
-                remotelist: [], // 远程搜索下拉数据源
+                remotelist: {}, // 远程搜索下拉数据源
                 remoteselected: null,
             }
         },
@@ -114,7 +114,7 @@
             this.configs = this.source;
         },
         methods: {
-            ...mapMutations([]),
+            ...mapMutations(["setEnableLoad"]),
 
             reset(){
                 for( let field in this.outval ){
@@ -155,15 +155,23 @@
             remoteMethod(query){
                 if (query !== '') {
                     this.loading = true;
+                    this.setEnableLoad( true );
+
                     setTimeout(() => {
-                        this.loading = false;
-                        this.remotelist = [
-                            { label: '漩涡鸣人', value: 'xwmr' },
-                            { label: '宇智波佐助', value: 'yzbzz' },
-                        ];
+                        let u = this.remoteselected.remoteurl.split(':'),
+                            p = {};
+
+                        p[ this.remoteselected.params ] = query;
+
+                        this.http[ u[0] ]( u[1], p ).then( res => {
+                            this.loading = false;
+                            this.setEnableLoad( false );
+
+                            let d = res.data;
+                            d.code == 0 ?  this.$set( this.remotelist, this.remoteselected.field, d.data ) : null;
+                        });
+
                     }, 200);
-                } else {
-                    this.remotelist = [];
                 }
             }
         },

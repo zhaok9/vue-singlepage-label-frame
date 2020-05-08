@@ -7,6 +7,21 @@
         <div class="box">
             <TableComponent :source="tabledata" @control="tableControls"></TableComponent>
         </div>
+
+        <el-dialog
+            title="弹框"
+            custom-class="dialog-ui"
+            width="30%"
+            :visible.sync="dialogVisible"
+            :append-to-body="true"
+            :before-close="handleClose">
+            <span>这是一段信息</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button size="mini" type="primary" @click="dialogVisible = false">保存</el-button>
+                <el-button size="mini" @click="dialogVisible = false">取消</el-button>
+            </span>
+        </el-dialog>
+
     </div>
 </template>
 <script>
@@ -15,6 +30,7 @@ export default {
     name: "Page-template",
     data() {
         return {
+            dialogVisible: true,
             // 筛选组件
             filterdata: [
                 {
@@ -54,7 +70,8 @@ export default {
                     type: 'remoteselect',
                     disabled: false,
                     placeholder: 'comp.filter.placeholder.remoteselect',
-                    remoteurl: 'http://google.com', // 搜索接口
+                    remoteurl: 'post:google.com', // 搜索接口
+                    params: 'test'
                 },
             ],
 
@@ -62,7 +79,7 @@ export default {
             tabledata: {
                 data: [{ name: '张三', sex: '男' },{ name: '李四', sex: '女' }], // 表格数据
                 columns: [
-                    { field: 'template.table.columns.name', column: 'name'},
+                    { field: 'template.table.columns.name', column: 'name', sort: true},
                     { field: 'template.table.columns.sex', column: 'sex', width: 100 }
                 ], // 显示的列
                 topControl: [{ field: 'template.table.btns.test', code: 'test', icon: 'icon-zengjia2' }], // 顶部按钮
@@ -88,7 +105,21 @@ export default {
     },
     created() {},
     mounted() {
-
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }).then(() => {
+            this.$message({
+                type: 'success',
+                message: '删除成功!'
+            });
+        }).catch(() => {
+            this.$message({
+                type: 'info',
+                message: '已取消删除'
+            });
+        });
     },
     methods: {
         ...mapMutations([]),

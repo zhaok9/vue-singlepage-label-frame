@@ -86,3 +86,54 @@
 
     .el-pagination__jump, span { font-size: inherit !important; }
 }
+
+.dialog-ui, .el-message-box {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+
+    .el-dialog__header,
+    .el-message-box__header
+    {
+        align-items: center;
+        display: flex;
+        height: 45px;
+        padding: 0 20px;
+
+        button {
+            top: 12px;
+        }
+
+        span, i, button:hover i {
+            font-size: 12px;
+            font-weight: bold;
+
+            opacity: 1;
+            transition: transform .2s linear;
+        }
+
+        button:hover i {
+            transform: rotate(90deg);
+        }
+    }
+
+    .el-dialog__body {
+        padding: 20px;
+    }
+
+    .el-dialog__footer,
+    .el-message-box__btns {
+        padding: 0 20px 20px 20px;
+        text-align: center;
+    }
+}
+
+.el-message-box {
+    height: 180px;
+    width: 350px;
+
+    .el-message-box__content {
+        padding: 30px 20px;
+    }
+}
+

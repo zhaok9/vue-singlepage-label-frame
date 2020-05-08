@@ -21,7 +21,7 @@
 
             <!-- 列 -->
             <template v-for="(item, index) of table.columns">
-                <el-table-column :prop="item.column" :label="$t( item.field )" :width="columnWidth(item, table.columns.length)" :show-overflow-tooltip="option.tooltip">
+                <el-table-column :prop="item.column" :label="$t( item.field )" :width="columnWidth(item, table.columns.length)" :show-overflow-tooltip="option.tooltip" :sortable="item.sort">
                     <template slot-scope="scope" :show-overflow-tooltip="option.tooltip" >
                         {{ ( scope.row[ item.column ] && scope.row[ item.column ] != '' ) || scope.row[ item.column ] == 0 ? scope.row[ item.column ] : '-' }}
                     </template>
@@ -39,7 +39,11 @@
                     <template v-for="(item, index) of table.columnControl">
                         <template v-if="$eval(scope.row, item.if) ">
                             <!-- 图标 -->
-                            <i v-if="item.type == 'icon'" :class="['iconfont', item.icon]" @click="$emit('control', { action: item, row: scope.row })"></i>
+                            <template v-if="item.type == 'icon'">
+                                <el-tooltip class="item" effect="dark" :content="$t( item.field )" placement="bottom">
+                                    <i :class="['iconfont', item.icon]" @click="$emit('control', { action: item, row: scope.row })"></i>
+                                </el-tooltip>
+                            </template>
 
                             <!-- 文本 -->
                             <span v-if="item.type == 'text'" @click="$emit('control',{ action: item, row: scope.row })">{{ $t(item.field) }}</span>
@@ -136,7 +140,7 @@ export default {
                         f.type == 'icon' ? w += 40 : f.type == 'text' ? w += (text.length / 2) * 12 + 10 : null;
                 });
 
-                return w;
+                return w + 10;
             }
         },
 
