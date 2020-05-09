@@ -16,8 +16,14 @@
             <i class="iconfont icon-xiaoyuhao"></i>
             <ul :class="{ show: ismore }">
                 <li v-for="(item, index) of morelabels" @click.stop="toggle( item )" :class="{ active: item.active }">
-                    <el-tooltip :content="$t(item.title)" placement="bottom"><span>{{ $t(item.title) }}</span></el-tooltip>
-                    <i @click.stop="destroy( item )">&times;</i>
+                    <template v-if="$u.strlen( $t(item.title) ) > 26">
+                        <el-tooltip :content="$t(item.title)" placement="left"><span>{{ $t(item.title) }}</span></el-tooltip>
+                        <i @click.stop="destroy( item )">&times;</i>
+                    </template>
+                    <template v-else>
+                        <span>{{ $t(item.title) }}</span>
+                        <i @click.stop="destroy( item )">&times;</i>
+                    </template>
                 </li>
             </ul>
         </div>
@@ -32,22 +38,23 @@
             return {
                 labels: [],
                 morelabels: [],
-                ismore: false
+                ismore: false,
+                max: 5,
             }
         },
         props: ['source'],
         watch: {
             source(n){
-                this.labels = n.slice(0, 10);
-                this.morelabels = n.slice(10, n.length);
+                this.labels = n.slice(0, this.max);
+                this.morelabels = n.slice(this.max, n.length);
             }
         },
         computed: {
         },
         created(){},
         mounted(){
-            this.labels = this.source.slice(0, 10);
-            this.morelabels = this.source.slice(10, this.source.length);
+            this.labels = this.source.slice(0, this.max);
+            this.morelabels = this.source.slice(this.max, this.source.length);
         },
         methods: {
             ...mapMutations(["removeKeepAliveRouter"]),
@@ -137,7 +144,7 @@
                 right: 0px;
                 top: 31px;
                 white-space: nowrap;
-                z-index: 1;
+                z-index: 5;
 
                 li {
                     align-items: center;
@@ -152,6 +159,9 @@
 
                     span {
                         flex: 1;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 150px;
                     }
 
                     i {

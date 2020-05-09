@@ -23,7 +23,7 @@ let loadHandle = {
         loadtext.className = 'loading-text';
         loadtext.innerHTML = `  <div>
                                     <i class="iconfont icon-Loading"></i>
-                                    <span>正在准备数据</span>
+                                    <span>${ localStorage.getItem('locale') == 'zh' ? '正在准备数据' : 'Data is being prepared' }</span>
                                 </div>`;
 
         this.el = load;

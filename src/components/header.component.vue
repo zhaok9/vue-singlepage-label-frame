@@ -40,6 +40,7 @@
 
             toggleLanguage( type ){
                 localStorage.setItem('locale', type);
+                document.querySelector('.loading-text span').innerHTML = type == 'zh' ? '正在准备数据' : 'Data is being prepared';
                 this.$i18n.locale = type;
             }
         },

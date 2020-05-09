@@ -29,7 +29,7 @@ $dialogHeaderFontColor: #fff;
 // end 组件样式 ==================================================
 
 
-#app.default-theme {
+.default-theme {
     background: $app-bg;
 
     .header {
@@ -160,17 +160,17 @@ $dialogHeaderFontColor: #fff;
         }
     }
     // 组件样式 ==================================================
-}
 
-// 通用弹框样式
-.dialog-ui, .el-message-box {
-    .el-dialog__header,
-    .el-message-box__header
-    {
-        background: $dialogHeaderBackground;
+    // 通用弹框样式
+    .dialog-ui, .el-message-box {
+        .el-dialog__header,
+        .el-message-box__header
+        {
+            background: $dialogHeaderBackground;
 
-        span, i, button:hover i {
-            color: $dialogHeaderFontColor;
+            span, i, button:hover i {
+                color: $dialogHeaderFontColor;
+            }
         }
     }
 }

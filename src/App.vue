@@ -1,5 +1,5 @@
 <template>
-    <div id="app" :class="theme">
+    <div id="app">
         <router-view />
     </div>
 </template>
@@ -21,11 +21,16 @@
             }
         },
         mounted(){
+            this.toggleTheme();
             this.rem();
             window.addEventListener('resize', this.rem, false);
         },
         methods: {
             ...mapMutations(['empty']),
+
+            toggleTheme(){
+                document.querySelector('body').classList.add( this.theme );
+            },
 
             rem(){
                 let whdef = 100 / 1920,
