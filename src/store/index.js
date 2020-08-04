@@ -49,11 +49,11 @@ export const store = new Vuex.Store({
         // 跳转路由清理请求 ==================================================
 
         addKeepAliveRouter( state, value ){
-            state.keepAliveRouter = JSON.parse(localStorage.getItem('keepAliveRouter')) || [];
+            let old = JSON.parse(localStorage.getItem('keepAliveRouter')) || [];
 
-            state.keepAliveRouter.push( value );
+            old.push( value );
 
-            state.keepAliveRouter = state.keepAliveRouter.reduce( ( all, next ) => all.some( item => item['component'] == next['component'] ) ? all : [...all, next ] ,[]);
+            state.keepAliveRouter = old.reduce( ( all, next ) => all.some( item => item['component'] == next['component'] ) ? all : [...all, next ] ,[]);
 
             let loops = d => {
                 d.forEach( f => {
@@ -70,13 +70,14 @@ export const store = new Vuex.Store({
 
             localStorage.setItem('keepAliveRouter', JSON.stringify(state.keepAliveRouter) );
 
-            localStorage.setItem('currentKeepAlive', JSON.stringify(state.currentKeepAlive) )
+            localStorage.setItem('currentKeepAlive', JSON.stringify(state.currentKeepAlive) );
         },
 
         editKeepAliveRouter( state, value ){
             if( value.params ){
-                state.keepAliveRouter = JSON.parse(localStorage.getItem('keepAliveRouter')) || [];
-                state.keepAliveRouter = state.keepAliveRouter.map( s => {
+                let old = JSON.parse(localStorage.getItem('keepAliveRouter')) || [];
+
+                state.keepAliveRouter = old.map( s => {
                     if( s.component == value.component ) {
                         s.params = value.params;
                     }
@@ -91,8 +92,28 @@ export const store = new Vuex.Store({
         },
 
         removeKeepAliveRouter( state, value ){
-            state.keepAliveRouter = state.keepAliveRouter.filter( f => f.component != value.component );
-            localStorage.setItem('keepAliveRouter', JSON.stringify(state.keepAliveRouter) );
+            if( value ){
+                state.keepAliveRouter = state.keepAliveRouter.filter( f => f.component != value );
+                localStorage.setItem('keepAliveRouter', JSON.stringify(state.keepAliveRouter) );
+            }
+        },
+
+        jumpKeepAliveRouter( state, value ){
+            if( value ){
+
+                let jump = null;
+
+                state.keepAliveRouter.forEach( f => f.component != value ? f.active = false : (
+                        f.active = true,
+                        jump = f
+                    )
+                );
+
+                state.currentKeepAlive = jump;
+
+                localStorage.setItem('keepAliveRouter', JSON.stringify(state.keepAliveRouter) );
+                localStorage.setItem('currentKeepAlive', JSON.stringify(state.currentKeepAlive) );
+            }
         },
 
         // 添加共用数据源
@@ -127,6 +148,8 @@ export const store = new Vuex.Store({
             localStorage.removeItem('token');
             localStorage.removeItem('userinfo');
             localStorage.removeItem('beforetime');
+            localStorage.removeItem('keepAliveRouter');
+            localStorage.removeItem('currentKeepAlive');
         }
     },
     getters: {

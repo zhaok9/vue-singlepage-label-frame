@@ -3,6 +3,7 @@ import axios from 'axios';
 import Qs from 'qs';
 import { store } from '../store/index';
 import { URL, ROOT } from '../config/index';
+import STATIC_SOURCE from '../store/static.source.js';
 
 axios.defaults.baseURL = ROOT;
 
@@ -20,10 +21,12 @@ let loadHandle = {
 
         const loadtext = document.createElement('div');
 
+        let locale = localStorage.getItem('locale');
+
         loadtext.className = 'loading-text';
         loadtext.innerHTML = `  <div>
                                     <i class="iconfont icon-Loading"></i>
-                                    <span>${ localStorage.getItem('locale') == 'zh' ? '正在准备数据' : 'Data is being prepared' }</span>
+                                    <span>${ locale == 'zh' || !locale ? '正在准备数据' : 'Data is being prepared' }</span>
                                 </div>`;
 
         this.el = load;
@@ -63,7 +66,7 @@ loadHandle.create();
 // 请求拦截器
 axios.interceptors.request.use(
     config => {
-        const token = store.state.token, api = config.url;
+        const Authorization = store.state.Authorization, token = store.state.token, api = config.url;
 
         if (!store.state.enableload) {
             // 加载进度条
@@ -81,6 +84,9 @@ axios.interceptors.request.use(
             config.headers.token = `${ token }`;
         }
 
+        if (Authorization) { // 判断是否存在Authorization，如果存在的话，则每个http header都加上Authorization
+            config.headers.Authorization = `Bearer ${ Authorization }`;
+        }
 
         localStorage.setItem('beforetime', +new Date());
 
@@ -99,10 +105,10 @@ axios.interceptors.response.use(
 
             const count = loadHandle.count;
 
-            // 加载进度条
             count.complete++;
 
-            if (count.complete + count.error == count.all) {
+            // 加载进度条
+            if (count.complete + count.error >= count.all) {
 
                 loadHandle.time = setTimeout(() => loadHandle.hide(true), 500);
 
@@ -114,6 +120,7 @@ axios.interceptors.response.use(
         return response;
 
     }, err => {
+
         let count = loadHandle.count;
 
         err.message != 'cancelRequest' ? count.error++ : count.complete++;
@@ -121,10 +128,11 @@ axios.interceptors.response.use(
         count.error == 1 ? (
             Vue.prototype.$message({
                 type: 'warning',
-                message: '服务器错误, 请联系管理员'
-            }),
-            loadHandle.hide(false)
+                message: STATIC_SOURCE['serverCode'][ err.response.status ] || STATIC_SOURCE['serverCode']['default']
+            })
         ) : null;
+
+        count.error > 0 ? setTimeout( () => loadHandle.hide(false), 500) : null;
 
         if( err.message == 'cancelRequest' ){
             loadHandle.hide(false)
@@ -136,6 +144,8 @@ axios.interceptors.response.use(
 
 const service = {
     defaults: axios.defaults,
+    root: ROOT,
+    url: URL,
 
     sync(promise) {
         return Promise.all(promise);
@@ -180,6 +190,25 @@ const service = {
             },
         })
     },
+
+    postForm(url, params) {
+        return axios.post(url, params, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+        })
+    },
+    //用户登录
+    userLogin(url, params) {
+        return axios.post(url , params, {
+            headers: {
+                'Authorization': 'Basic cGlnOnBpZw==',
+                'TENANT_ID': 1
+            },
+
+        })
+    },
 };
 
 Vue.prototype.http = service;
+Vue.prototype.loadBar = loadHandle;

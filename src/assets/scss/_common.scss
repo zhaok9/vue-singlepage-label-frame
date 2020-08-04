@@ -13,7 +13,7 @@
     &-text {
         color: #fff;
         height: 0;
-        line-height: 67px;
+        line-height: 49px;
         position: fixed;
         top: 0;
         text-align: center;
@@ -23,7 +23,7 @@
         > div { height: 0; }
 
         &.on {
-            z-index: 999;
+            z-index: 9999;
 
             i {
                 animation: turn 1s linear infinite;
@@ -38,141 +38,379 @@
     }
 }
 
-// element ui 样式重写
-$fontSize: 12px;
+.diy-table {
+    background: #fff;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
 
-.el-select-dropdown {
-    .el-select-dropdown__item,
-    .el-select-dropdown__empty {
-        font-size: $fontSize;
-    }
-}
+    table {
+        table-layout: fixed;
+        width: 100%;
 
-.el-textarea {
-    font-size: $fontSize;
-    textarea {
-        resize:none;
-    }
-}
+        thead {
+            td {
+                border-bottom: 1px solid #E5E5E5;
+                background: #ECF0F2;
+                color: #191D22;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                width: 150px;
 
-.el-table {
-    font-size: $fontSize;
-    th {
-        padding: 7px 0;
-        &.is-leaf { border: none; }
-    }
-
-    .el-table__header-wrapper,
-    .el-table__fixed-header-wrapper {
-        border:1px solid rgba(229,229,229,1);
-
-        th {
-            background: rgba(248,249,251,1);
-            color: #535965;
-            font-size: $fontSize;
+                &.w5 { width: 50px; }
+                &.w300 { width: 300px; }
+            }
         }
-    }
 
-    .el-table__body-wrapper,
-    .el-table__fixed-body-wrapper {
-        tr:nth-child(1){
-            td { border: none; }
-        }
-    }
+        tbody {
+            margin-top: 40px;
 
-    .el-table-column--selection .cell {
-        padding: 0 10px;
-    }
+            tr {
+                // &:nth-child(even) {
+                //     background: #F8F9FB;
+                // }
 
-    .table-controls {
-        .cell{
-            display: flex;
-            white-space: nowrap;
+                &.active {
+                    background: #E7F4FD;
+                }
+            }
 
-            *:last-child {
-                margin-right: 0;
+            td {
+                border-bottom: 1px solid #E7F4FD;
+                color: #535965;
+                height: 40px;
+                line-height: 40px;
+                overflow: hidden;
+                padding: 0 10px;
+                text-align: center;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
     }
 }
 
-.el-pagination {
-    font-size: $fontSize;
+// element ui 样式重写
+$fontSize: 12px;
 
-    .el-pagination__jump, span { font-size: inherit !important; }
-}
+body {
+    input[type="number"] {
+        padding-right: 0;
+    }
 
-.dialog-ui, .el-message-box {
-    border: none;
-    border-radius: 10px;
-    overflow: hidden;
+    .mlr10 { margin: 0 10px; }
 
-    .el-dialog__header,
-    .el-message-box__header
-    {
-        align-items: center;
-        display: flex;
-        height: 45px;
-        padding: 0 20px;
-
-        button {
-            top: 12px;
+    .el-select {
+        .el-input__icon {
+            line-height: 32px;
         }
+    }
 
-        span, i, button:hover i {
+    .el-select-dropdown {
+        .el-select-dropdown__item,
+        .el-select-dropdown__empty {
             font-size: $fontSize;
-            font-weight: bold;
-
-            opacity: 1;
-            transition: transform .2s linear;
-        }
-
-        button:hover i {
-            transform: rotate(90deg);
         }
     }
 
-    .el-dialog__body {
-        padding: 20px;
-    }
-
-    .el-dialog__footer,
-    .el-message-box__btns {
-        padding: 0 20px 20px 20px;
-        text-align: center;
-    }
-}
-
-.el-message-box {
-    height: 180px;
-    width: 350px;
-
-    .el-message-box__content {
-        padding: 30px 20px;
-    }
-}
-
-.el-radio {
-    font-weight: normal;
-    .el-radio__label {
-        font-size: 13px;
-        padding-left: 5px;
-    }
-}
-
-.el-input {
-    font-size: $fontSize;
-    input {
-        height: 32px;
-        line-height: 32px;
-    }
-}
-
-.el-form {
-    .el-form-item__label,
-    .el-form-item__content {
+    .el-textarea {
         font-size: $fontSize;
+        textarea {
+            resize:none;
+        }
+    }
+
+    .el-table {
+        font-size: $fontSize;
+        th, td {
+            height: 40px;
+            overflow: hidden;
+        }
+
+        th {
+            padding: 0;
+            &.is-leaf { border: none; }
+        }
+
+        td {
+            padding: 0;
+            .cell {
+                color: #535965;
+                .t {
+                    border-radius: 5px;
+                    color: #fff;
+                    display: block;
+                    height: 24px;
+                    line-height: 24px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-align: center;
+                    width: 68px;
+                }
+            }
+        }
+
+        .el-table__header-wrapper,
+        .el-table__fixed-header-wrapper {
+            border:1px solid rgba(229,229,229,1);
+
+            th {
+                background: #ecf0f2;
+                color: #191d22;
+                font-size: $fontSize;
+            }
+        }
+
+        .el-table-column--selection .cell {
+            padding: 0 10px;
+        }
+
+        .table-controls {
+            .cell{
+                display: flex;
+                white-space: nowrap;
+
+                *:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .hover-row, tr.hover-row > td {
+            background: #E7F4FD !important;
+        }
+    }
+
+    .el-table--striped .el-table__body tr.el-table__row--striped td {
+        background: #f8f9fb;
+    }
+
+    .el-pagination {
+        font-size: $fontSize;
+
+        .el-pagination__jump, span { font-size: inherit !important; }
+    }
+
+    .dialog-ui, .el-message-box, .form {
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+
+        .el-dialog__header,
+        .el-message-box__header
+        {
+            align-items: center;
+            display: flex;
+            height: 45px;
+            padding: 0 20px;
+
+            button {
+                top: 12px;
+            }
+
+            span, i, button:hover i {
+                font-size: $fontSize;
+                font-weight: bold;
+
+                opacity: 1;
+                transition: transform .2s linear;
+            }
+
+            button:hover i {
+                transform: rotate(90deg);
+            }
+        }
+
+        .el-dialog__body {
+            padding: 20px;
+        }
+
+        .el-dialog__footer,
+        .el-message-box__btns {
+            padding: 0 20px 20px 20px;
+            text-align: center;
+        }
+
+        .el-select { width: 100%; }
+        .el-form-item { margin-bottom: 18px; }
+    }
+
+    .el-message-box {
+        height: 180px;
+        width: 400px;
+
+        .el-message-box__content {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            padding: 30px 18px;
+
+            .el-message-box__status {
+                position: static;
+                transform: none;
+
+                &+.el-message-box__message {
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+
+    .el-radio {
+        font-weight: normal;
+        .el-radio__label {
+            font-size: 13px;
+            padding-left: 5px;
+        }
+    }
+
+    .el-input {
+        font-size: $fontSize;
+        input {
+            height: 32px;
+            line-height: 32px;
+        }
+    }
+
+    .el-form {
+        .el-form-item__label,
+        .el-form-item__content {
+            font-size: $fontSize;
+            min-height: 32px;
+            line-height: 32px;
+        }
+
+        .el-range__close-icon,
+        .el-icon-circle-close {
+            line-height: 26px;
+        }
+    }
+
+    .iScrollVerticalScrollbar {
+        border-radius: 8px;
+        background: #E5E5E5;
+        width: 8px !important;
+    }
+
+    .iScrollHorizontalScrollbar {
+        background: #F1F4F8;
+        left: 0 !important;
+        right: 0 !important;
+        height: 8px !important;
+    }
+
+    .iScrollIndicator {
+        border: none !important;
+        background: #d2d2d2 !important;
+    }
+
+    .el-tooltip__popper {
+        line-height: 1.5;
+        max-width: 500px;
+        text-align: justify;
+    }
+
+    .el-date-editor,
+    .el-date-editor--daterange,
+    .el-date-editor--datetimerange {
         height: 32px;
         line-height: 32px;
+        width: 100%;
+
+        .el-icon-time,
+        .el-input__icon,
+        .el-range__icon,
+        .el-range-separator,
+        .el-range__close-icon {
+            line-height: 24px;
+            padding: 0;
+        }
+
+        .el-range-input,
+        .el-input__inner,
+        .el-range-separator {
+            font-size: $fontSize;
+        }
+    }
+
+    .el-checkbox__label {
+        font-size: $fontSize;
+        height: 16px;
+        line-height: 13px;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+
+    .el-button--primary {
+        background: #5a8fdf;
+    }
+
+
+    .el-pagination {
+        .el-pagination__sizes {
+            height: 22px;
+        }
+
+        &.is-background .el-pager li {
+            background: #fff;
+        }
+
+        &.is-background .el-pager li:not(.disabled).active {
+            background: #5a8fdf;
+        }
+
+        &.is-background .btn-next, &.is-background .btn-prev {
+            color: #606266;
+        }
+
+        button span {
+            padding: 0 10px;
+        }
+
+        .el-select {
+            .el-input__inner {
+                color: #606266 !important;
+                height: 22px;
+                line-height: 22px;
+            }
+
+            .el-input__icon {
+                line-height: 22px;
+            }
+        }
+
+        .el-pagination__jump {
+            margin-left: 0px;
+        }
+
+        slot {
+            span {
+                color: #606266 !important;
+            }
+        }
+
+    }
+
+    .el-notification {
+        .el-notification__title {
+            font-size: 14px;
+        }
+
+        .el-notification__icon {
+            font-size: 22px;
+        }
+
+        .el-notification__content p {
+            word-break: break-all;
+        }
+    }
+
+    .el-input__suffix {
+        height: 32px;
+        line-height: 32px;
+        .el-input__icon {
+            line-height: 34px;
+        }
     }
 }

@@ -1,12 +1,16 @@
 $compNavBorder: 1px solid #F0F1F2; // 导航上下边框线
-$compNavFontColor: #1A1D20; // 整体字体颜色
+$compNavFontColor: #082D6C; // 整体字体颜色
 $compNavBorderBottom: 1px solid #F0F1F2; // 导航间隔线
-$compNaveActiveBackground: #0DA9F5; // 导航选中背景色
+$compNaveActiveBackground: #5A8FDF; // 导航选中背景色
 $compNaveActiveFontColor: #fff; // 导航选中字体颜色
 $compNaveSubBackground: #fff; // 子导航背景颜色
-$compNavSubPointBorder: 1px solid #1A1D20; // 子级导航圆点图标边框
+$compNavSubPointBorder: 1px solid #082D6C; // 子级导航圆点图标边框
 $compNavSubActivePointColor: #fff; // 子级导航选中圆点边框和背景颜色
 $compNavSubActiveFontColor: #fff; // 子级导航选中字体颜色
-$compNaveSubActiveBackground: #0DA9F5; // 子导航选中背景颜色
+$compNaveSubActiveBackground: #5A8FDF; // 子导航选中背景颜色
 $compNavControlBackground: #fff; // 导航展开收起按钮背景色
 $compNavControlShadow: 7px 0px 7px -5px rgba(209,209,209,.7); // 导航展开收起按钮阴影
+
+$compNavSmallBackground: #fff; // 收起菜单背景色
+$compNavSmallChildrenBackground: #fff; // 收起菜单子级背景色
+$compNavSmallChildrenShadow:  2px 0px 6px 0px rgba(209,209,209,0.5); // 收起菜单子级背阴影

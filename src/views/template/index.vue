@@ -1,11 +1,11 @@
 <template>
     <div class="page-template">
-        <div class="box">
-            <FilterComponent :source="filterdata" @getvalue="filterOutvalue"></FilterComponent>
+         <div class="box">
+            <FilterComponent lw="100%" rw="33.333%" :source="filterdata" @getvalue="filterOutvalue" @on-off="setTableHeight"></FilterComponent>
         </div>
 
         <div class="box">
-            <TableComponent :source="tabledata" @control="tableControls"></TableComponent>
+            <TableComponent :source="tabledata" :options="tableoptions" @control="tableControls"></TableComponent>
         </div>
 
         <el-dialog
@@ -14,7 +14,7 @@
             width="30%"
             :visible.sync="dialogVisible"
             :append-to-body="true"
-            :before-close="handleClose">
+            :before-close="dialogClose">
             <span>这是一段信息</span>
             <span slot="footer" class="dialog-footer">
                 <el-button size="mini" type="primary" @click="dialogVisible = false">保存</el-button>
@@ -30,7 +30,8 @@ export default {
     name: "Page-template",
     data() {
         return {
-            dialogVisible: true,
+            dialogVisible: false,
+
             // 筛选组件
             filterdata: [
                 {
@@ -60,7 +61,7 @@ export default {
                     placeholder: 'comp.filter.placeholder.select',
                     data: 'sex', // 字符串(静态数据源key)或者数组
                     value: 1, // 默认值为数据源的 value
-                    i18n: true
+                    i18n: true,
                 },
 
                 {
@@ -70,16 +71,16 @@ export default {
                     type: 'remoteselect',
                     disabled: false,
                     placeholder: 'comp.filter.placeholder.remoteselect',
-                    remoteurl: 'post:google.com', // 搜索接口
-                    params: 'test'
+                    remoteurl: 'http://google.com', // 搜索接口
                 },
             ],
 
             // 表格配置
+            tableoptions: {},
             tabledata: {
                 data: [{ name: '张三', sex: '男' },{ name: '李四', sex: '女' }], // 表格数据
                 columns: [
-                    { field: 'template.table.columns.name', column: 'name', sort: true},
+                    { field: 'template.table.columns.name', column: 'name'},
                     { field: 'template.table.columns.sex', column: 'sex', width: 100 }
                 ], // 显示的列
                 topControl: [{ field: 'template.table.btns.test', code: 'test', icon: 'icon-zengjia2' }], // 顶部按钮
@@ -90,10 +91,11 @@ export default {
                 ], // 操作按钮
                 pagination: {
                     size: 10,
-                    page: 1,
+                    current: 1,
                     total: 1,
                 } // 分页参数
-            }
+            },
+
         };
     },
     computed: {
@@ -105,24 +107,14 @@ export default {
     },
     created() {},
     mounted() {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-        }).then(() => {
-            this.$message({
-                type: 'success',
-                message: '删除成功!'
-            });
-        }).catch(() => {
-            this.$message({
-                type: 'info',
-                message: '已取消删除'
-            });
-        });
+
     },
     methods: {
         ...mapMutations([]),
+
+        setTableHeight(){
+            this.tableoptions = Object.assign({}, this.tableoptions);
+        },
 
         filterOutvalue( val ){
             console.log('filter', val);
@@ -134,6 +126,40 @@ export default {
             //     case 'test': return;
             //     case 'del': return;
             // }
+        },
+
+        selectAreaValue( val ){
+            console.log(val);
+        },
+
+        selectAreaScrollBottom(){
+            const len = this.selectarea.length;
+            for( let i = len; i < len + 10; i++ ){
+                this.selectarea.push({
+                    id: i,
+                    name: '测试' + i,
+                    sex: '男',
+                    age: i
+                });
+            }
+        },
+
+        dialogClose(){
+            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            });
         }
     }
 };

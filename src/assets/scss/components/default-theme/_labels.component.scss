@@ -1,15 +1,18 @@
-$compLabelLayBackground: #fff; // 背景色
-$compLabelBackground: #fff; // 标签背景色
+$compLabelLayBackground: #F2F5F9; // 背景色
+$compLabelBackground: #F2F5F9; // 标签背景色
 $compLabelFontColor: #535965; // 标签字体颜色
-$compLabelActiveBackground: #F2F5F9; // 标签选中背景色
-$compLabelActiveFontColor: #535965; // 标签选中字体颜色
+$compLabelActiveBackground: #fff; // 标签选中背景色
+$compLabelActiveFontColor: #06427E; // 标签选中字体颜色
 $compLabelCloseBackground: transparent; // 关闭图标背景颜色
 $compLabelCloseColor: #939393; // 关闭图标颜色
 $compLabelCloseHoverBackground: transparent; // 关闭图标鼠标移上去背景色
 $compLabelCloseHoverColor: #939393; // 关闭图标鼠标移上去颜色
 $compLabelBorderColor: 1px solid rgba(229,229,229,1); // 标签边框颜色
+$compLabelMorebackground: #fff; // 更多按钮背景色
+$compLabelMoreBorder: 1px solid #e5e5e5; // 更多按钮背景色
 $compLabelSelectBackground: #fff; // 更多标签下拉背景色
 $compLabelSelectShadow: 0 0 10px rgba(0, 0, 0, .1); // 更多标签下拉阴影
 $compLabelSelectBottomBorder: 1px solid #e5e5e5; // 更多标签下拉边框
 $compLabelSelectHoverBackground: #F2F5F9; // 更多标签下拉鼠标移上去背景色
 $compLabelSelectActiveBackground: #F2F5F9; // 更多标签下拉选中背景色
+$compLabelMoreIconColor: #999; // 更多、上一个、下一个图标颜色
