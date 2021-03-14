@@ -7,7 +7,7 @@
             <div class="labels-scroll">
                 <template v-for="( item, index ) of labels">
                     <div :class="{ active: item.active }" @click.stop="toggle( item )" :data-key="$t( item.title )" :data-index="index">
-                        <template v-if="$u.strlen( (item.subtitle ? `${item.subtitle} - ` : '') + $t(item.title) ) > 8">
+                        <template v-if="$util.strlen( (item.subtitle ? `${item.subtitle} - ` : '') + $t(item.title) ) > 8">
                             <el-tooltip :content="(item.subtitle ? `${item.subtitle} - ` : '') + $t(item.title)" placement="top"><span>{{ item.subtitle ? `${item.subtitle} - ` : '' }}{{ $t(item.title) }}</span></el-tooltip>
                         </template>
                         <template v-else>
@@ -27,7 +27,7 @@
             <i class="iconfont icon-xiaoyuhao"></i>
             <ul :class="{ show: ismore }">
                 <li v-for="(item, index) of morelabels" @click.stop="toggle( item )" :class="{ active: item.active }">
-                    <template v-if="$u.strlen( $t(item.title) ) > 26">
+                    <template v-if="$util.strlen( $t(item.title) ) > 26">
                         <el-tooltip :content="$t(item.title)" placement="left"><span>{{ $t(item.title) }}</span></el-tooltip>
                         <i @click.stop="destroy( item )">&times;</i>
                     </template>
@@ -107,7 +107,7 @@
                 this.$emit('getvalue', item);
             },
             destroy( item ){
-                this.$u.labels.rm(item.component);
+                this.$util.labels.rm(item.component);
             },
             toggleMore(){
                 this.ismore = !this.ismore;

@@ -52,7 +52,7 @@
                         <template v-if="level == 1">
                             <i class="iconfont" :class="item.icon"></i>
 
-                            <template v-if="$u.strlen( $t(item.title) ) > 8">
+                            <template v-if="$util.strlen( $t(item.title) ) > 8">
                                 <el-tooltip :content="$t(item.title)" placement="right"><span>{{ $t(item.title) }}</span></el-tooltip>
                             </template>
                             <template v-else>
@@ -63,7 +63,7 @@
                         </template>
                         <template v-else>
                             <!-- <i class="point"></i> -->
-                            <template v-if="$u.strlen( $t(item.title) ) > 16">
+                            <template v-if="$util.strlen( $t(item.title) ) > 16">
                                 <el-tooltip :content="$t(item.title)" placement="right"><span>{{ $t(item.title) }}</span></el-tooltip>
                             </template>
                             <template v-else>
@@ -86,7 +86,7 @@
                 <li v-for="item of navs.children" @click.stop="go(item)" :class="{ active: currentKeepAlive.id == item.id || currentKeepAlive.keepid == item.id }">
                     <div class="text">
                         <!-- <i class="point"></i> -->
-                        <template v-if="$u.strlen( $t(item.title) ) > 16">
+                        <template v-if="$util.strlen( $t(item.title) ) > 16">
                             <el-tooltip :content="$t(item.title)" placement="right"><span>{{ $t( item.title) }}</span></el-tooltip>
                         </template>
                         <template v-else>

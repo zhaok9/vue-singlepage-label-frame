@@ -5,7 +5,7 @@
                 <div class="left-textarea" v-if="areas.length > 0" :style="{ flex: areas.length }">
                     <template v-for="item of areas">
                         <div class="filter-row" :style="{ width: lw ? `calc(${lw} - 10px)` : 'calc(50% - 10px)' }">
-                            <el-tooltip v-if="$u.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
+                            <el-tooltip v-if="$util.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
                                 <span class="filter-label">
                                     {{ $t(item.label) }}
                                 </span>
@@ -28,7 +28,7 @@
                 <div class="left-other" :style="{ flex: 4 - areas.length }">
                     <template v-for="item of other">
                         <div class="filter-row" :style="{ width: rw ? `calc(${rw} - 10px)` : 'calc(50% - 10px)' }">
-                            <el-tooltip v-if="$u.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
+                            <el-tooltip v-if="$util.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
                                 <span class="filter-label">
                                     {{ $t(item.label) }}
                                 </span>
@@ -127,7 +127,7 @@
                     <template v-for="item of lang">
                         <div class="filter-row">
                             <template v-if="item.label">
-                                <el-tooltip v-if="$u.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
+                                <el-tooltip v-if="$util.strlen( $t(item.label) ) > 10" class="item" effect="dark" :content="$t(item.label)" placement="top">
                                     <span class="filter-label">
                                         {{ $t(item.label) }}
                                     </span>
@@ -405,8 +405,8 @@
                         _outval[ key ] = d.split(/\n|,|\r/g).filter( f => f ).join() :
 
                         key === '_datetimerange' && this.outval[ key ] ? (
-                            _outval['startTime'] = this.$u.formatDate('yyyy-MM-dd hh:mm:ss', this.outval[ key ][0]),
-                            _outval['endTime'] = this.$u.formatDate('yyyy-MM-dd hh:mm:ss', this.outval[ key ][1])
+                            _outval['startTime'] = this.$util.formatDate('yyyy-MM-dd hh:mm:ss', this.outval[ key ][0]),
+                            _outval['endTime'] = this.$util.formatDate('yyyy-MM-dd hh:mm:ss', this.outval[ key ][1])
                         ) :
 
                         _outval[ key ] = d;
@@ -423,7 +423,7 @@
              * @return {[type]}     [description]
              */
             changeSearchTime( val ){
-                let time = this.$u.quickTime(val)
+                let time = this.$util.quickTime(val)
                 this.outval = Object.assign({}, this.outval, time)          },
         },
         beforeDestroy(){

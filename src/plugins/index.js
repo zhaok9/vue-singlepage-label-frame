@@ -82,73 +82,74 @@ const util = {
             return fmt;
         }
         return date;
-    },
-
-    /**
-     * [labels 标签管理]
-     * @return {[type]} [description]
-     */
-    labels: {
-        // 获取手动添加标签传的参数
-        params() {
-            return JSON.parse(localStorage.getItem('currentKeepAlive')).params || {};
-        },
-
-        setParams( val ){
-            store.commit('editKeepAliveRouter', val );
-            return this;
-        },
-
-        // 添加标签
-        add({ url, title, subtitle, component, params } = { subtitle: "" }) {
-            store.commit('addKeepAliveRouter', {
-                url,
-                title,
-                component,
-                params,
-                subtitle,
-                pid: localStorage.getItem('navopenid'), // 保持当前打开导航状态
-                keepid: store.state.currentKeepAlive.id, // 保持当前打开导航选中状态
-                level: 2 // 手动新标签为2级导航
-            });
-            return this;
-        },
-
-        // 删除标签
-        rm(n) {
-            store.commit('removeKeepAliveRouter', n);
-            return this;
-        },
-
-        // 跳转标签
-        jump(n) {
-            store.commit('jumpKeepAliveRouter', n);
-            return this;
-        },
-
-        // 跳到指定导航
-        toNav(n, params = '') {
-            let go = null,
-                nav = JSON.parse(localStorage.getItem('navdata')),
-                loops = d => {
-                    d.some(f => {
-                        if (f.component && f.component == n) {
-                            params ? f.params = params : null;
-                            go = f;
-                            return true;
-                        }
-
-                        if (f.children && f.children.length > 0) {
-                            loops(f.children);
-                        }
-                    });
-                };
-
-            loops(nav);
-
-            store.commit('addKeepAliveRouter', go);
-        },
-    },
+    }
 };
 
-Vue.prototype.$u = util;
+/**
+ * [labels 标签管理]
+ * @return {[type]} [description]
+ */
+const router = {
+    // 获取手动添加标签传的参数
+    params() {
+        return JSON.parse(localStorage.getItem('currentKeepAlive')).params || {};
+    },
+
+    setParams(val) {
+        store.commit('editKeepAliveRouter', val);
+        return this;
+    },
+
+    // 添加标签
+    add({ url, title, subtitle, component, params } = { subtitle: "" }) {
+        store.commit('addKeepAliveRouter', {
+            url,
+            title,
+            component,
+            params,
+            subtitle,
+            pid: localStorage.getItem('navopenid'), // 保持当前打开导航状态
+            keepid: store.state.currentKeepAlive.id, // 保持当前打开导航选中状态
+            level: 2 // 手动新标签为2级导航
+        });
+        return this;
+    },
+
+    // 删除标签
+    rm(n) {
+        store.commit('removeKeepAliveRouter', n);
+        return this;
+    },
+
+    // 跳转标签
+    jump(n) {
+        store.commit('jumpKeepAliveRouter', n);
+        return this;
+    },
+
+    // 跳到指定导航
+    to(n, params = '') {
+        let go = null,
+            nav = JSON.parse(localStorage.getItem('navdata')),
+            loops = d => {
+                d.some(f => {
+                    if (f.component && f.component == n) {
+                        params ? f.params = params : null;
+                        go = f;
+                        return true;
+                    }
+
+                    if (f.children && f.children.length > 0) {
+                        loops(f.children);
+                    }
+                });
+            };
+
+        loops(nav);
+
+        store.commit('addKeepAliveRouter', go);
+    },
+}
+
+Vue.prototype.$rt = router;
+Vue.prototype.$util = util;
