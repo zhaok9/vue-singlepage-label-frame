@@ -74,7 +74,7 @@
         }
     }
 </script>
-<style scoped lang="scss">
+<style scoped lang="less">
     .component-header {
         align-items: center;
         display: flex;
@@ -120,11 +120,10 @@
                 label { margin-left: 10px; }
             }
         }
-
     }
 </style>
 
-<style lang="scss">
+<style lang="less">
     .component-header {
         .el-select { width: 95px; }
         .el-input__inner {

@@ -14,6 +14,7 @@ import IScroll from 'iscroll/build/iscroll-probe'; // 复杂版
 // import IScroll from 'iscroll/build/iscroll-infinite'; // 无限循环版
 
 import './assets/scss/style.css';
+import './assets/less/index.css';
 
 // Vue.config.devtools = true;
 Vue.config.productionTip = false;

@@ -1,11 +1,11 @@
-const   path = require("path"),
-        resolve = dir => path.join(__dirname, dir),
-        IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV),
-        TerserPlugin = require('terser-webpack-plugin'),
-        CompressionWebpackPlugin = require("compression-webpack-plugin"),
-        zopfli = require("@gfx/zopfli"),
-        BrotliPlugin = require("brotli-webpack-plugin"),
-        productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
+const path = require("path"),
+    resolve = dir => path.join(__dirname, dir),
+    IS_PROD = ["production", "prod"].includes(process.env.NODE_ENV),
+    TerserPlugin = require('terser-webpack-plugin'),
+    CompressionWebpackPlugin = require("compression-webpack-plugin"),
+    zopfli = require("@gfx/zopfli"),
+    BrotliPlugin = require("brotli-webpack-plugin"),
+    productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
 
 module.exports = {
     publicPath: IS_PROD ? process.env.VUE_APP_PUBLIC_PATH : "./",
@@ -121,6 +121,7 @@ module.exports = {
             .set("@", resolve("src"))
             .set("@assets", resolve("src/assets"))
             .set("@scss", resolve("src/assets/scss"))
+            .set("@less", resolve("src/assets/less"))
             .set("@components", resolve("src/components"))
             .set("@plugins", resolve("src/plugins"))
             .set("@views", resolve("src/views"))
@@ -182,5 +183,5 @@ module.exports = {
                 }
             }
         }
-    }
+    },
 }
