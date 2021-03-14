@@ -10,7 +10,7 @@
         data(){
             return {
                 theme: 'default-theme'
-            }
+            }   
         },
         computed: {
             ...mapState([])
